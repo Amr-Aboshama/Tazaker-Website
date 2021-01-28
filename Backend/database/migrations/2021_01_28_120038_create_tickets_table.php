@@ -14,8 +14,15 @@ class CreateTicketsTable extends Migration
     public function up()
     {
         Schema::create('tickets', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('username');
+            $table->integer('match_id');
+            $table->integer('seat_row');
+            $table->integer('seat_column');
+
+            $table->primary(['username', 'match_ID', 'seat_row', 'seat_column']);
+
+            $table->foreign('username')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('match_id')->references('id')->on('matches')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -14,8 +14,11 @@ class CreateStadiaTable extends Migration
     public function up()
     {
         Schema::create('stadia', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('name');
+            $table->integer('row_count');
+            $table->integer('column_count');
+
+            $table->primary('name');
         });
     }
 
