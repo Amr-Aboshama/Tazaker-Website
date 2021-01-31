@@ -1,0 +1,149 @@
+<app-navbar></app-navbar>
+<div class="bg">
+<div class="container mx-auto  px-4 h-full">
+  <div class="flex content-center items-center justify-center h-full">
+    <div class="w-full my-12 lg:w-6/12 px-4">
+      <div
+        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0"
+      >
+        <div class="rounded-t mb-0 px-6 py-6">
+        </div>
+
+        <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+
+          <form #matchForm="ngForm">
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                htmlFor="hometeam"
+              >
+                Home Team:
+              </label>
+              <input
+                type="email"
+                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                placeholder="Home team"
+                name="Home_team"
+                [(ngModel)]="match.Home_team"
+              />
+            </div>
+
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                htmlFor="awayteam"
+              >
+                Away Team:
+              </label>
+              <input
+                type="email"
+                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                placeholder="awayteam"
+                name="Away_team"
+                [(ngModel)]="match.Away_team"
+              />
+            </div>
+
+
+
+            <div class="h-20 flex flex-wrap content-start ">
+              <div class="pr-8">
+              <label
+                class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                htmlFor="date"
+              >
+                Date:
+              </label>
+              <input
+                type="email"
+                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                placeholder="date"
+                name="Date"
+                [(ngModel)]="match.Date"
+              />
+            </div>
+              <!-- test -->
+              <div class="pr-8">
+              <label
+                class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                htmlFor="time"
+              >
+                Time:
+              </label>
+              <input
+                type="email"
+                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                placeholder="time"
+                name="Time"
+                [(ngModel)]="match.Time"
+              />
+            </div>
+
+
+            </div>
+
+
+
+
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                htmlFor="mainreferee"
+              >
+                Main referee:
+              </label>
+              <input
+                type="email"
+                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                placeholder="main referee"
+                name="Main_referee"
+                [(ngModel)]="match.Main_referee"
+              />
+            </div>
+
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                htmlFor="firstlinesman"
+              >
+              First linesman:
+              </label>
+              <input
+                type="email"
+                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                placeholder="first linesman"
+                name="First_linesman"
+                [(ngModel)]="match.First_linesman"
+              />
+            </div>
+
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                htmlFor="secondlinesman"
+              >
+              Second linesman:
+              </label>
+              <input
+                type="email"
+                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                placeholder="second linesman"
+                name="Second_linesman"
+                [(ngModel)]="match.Second_linesman"
+              />
+            </div>
+
+            <div class="text-center mt-12">
+              <button
+                class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                type="button" (click)="addMatch()">
+                Add match
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
