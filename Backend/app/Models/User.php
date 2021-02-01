@@ -3,13 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
+
+    public $incrementing = false; //so eloquent doesn't expect your primary key to be an autoincrement primary key.
+
+    public $timestamps = false; // To cancel expectations of updated_at and created_at tables.
 
     /**
      * The attributes that are mass assignable.
@@ -17,9 +23,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'first_name',
+        'last_name',
+        'birthdate',
+        'gender',
+        'city',
+        'role',
+        'address'
     ];
 
     /**
@@ -40,4 +53,164 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $primaryKey = 'username';
+    protected $keyType = 'string';
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+
+
+    /**
+     * takes the data of the user then bcrypt its password then create this user
+     * and return it.
+     *
+     * @param array $user_data the data of the user (name,password,email)
+     *
+     * @return object [ the created user object ].
+     */
+    public static function storeUser($user_data)
+    {
+        $user_data['password'] = bcrypt($user_data['password']);
+
+        return self::create($user_data);
+    }
+
+    /**
+     * return list of users that their name contains a specific subname.
+     *
+     * @param string $username the subname that we are searching for it
+     *
+     * @return array [ the list of users that their name contains the subname ].
+     */
+    public static function getUsersByUsername($username)
+    {
+        return self::where('username', 'like', '%'.$username.'%')
+            ->select('username')
+            ->where('username', 'like', '%'.$username.'%')
+            ->pluck('username')->toArray();
+    }
+
+    /**
+     * return the data of a specific user given his/her username.
+     *
+     * @param string $username the username of the user that we want his/her
+     *                         data
+     *
+     * @return object [ the user object wanted ].
+     */
+    public static function getUserWholeRecord($username)
+    {
+        return self::where('username', '=', $username)->first();
+    }
+
+    /**
+     * return the data of a specific user given his/her email.
+     *
+     * @param string $email the email of the user that we want his/her
+     *                      data
+     *
+     * @return object [ the user object wanted ].
+     */
+    public static function getUserWholeRecordByEmail($email)
+    {
+        try {
+            return self::where('email', $email)->first();
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * delete specific user from the database.
+     *
+     * @param string $username the username of the user that wanted to be removed
+     *
+     * @return bool [ true or false according t the deletion of the user object ].
+     */
+    public static function deleteUserByUsername($username)
+    {
+        return self::where('username', $username)->delete();
+    }
+
+    /**
+     * check if the user exists in the database or not given the username.
+     *
+     * @param string $username the user we need to check its existance
+     *
+     * @return bool [ true or false according to the existance of the user ].
+     */
+    public static function userExist($username)
+    {
+        $result = self::where('username', $username)->exists();
+
+        return $result;
+    }
+
+    /**
+     * check if the password entered by the user is right or not.
+     *
+     * @param string $username the currently logged in user
+     * @param string $password the password i need to check its validity
+     *
+     * @return int [ 1 or 0 according to the success of the update ].
+     */
+    public static function checkIfPasswordRight($username, $password)
+    {
+        $hashedpassword = self::select('password')->where('username', $username)->first()->password;
+
+        if (Hash::check($password, $hashedpassword)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * changes the password of the user.
+     *
+     * @param array $username
+     * @param array $password
+     *
+     * @return object [ the created user object ].
+     */
+    public static function changeUserPassword($username, $password)
+    {
+        $password = bcrypt($password);
+        $result = self::where('username', $username)->update(['password' => $password]);
+
+        return $result;
+    }
+
+    /**
+     * delete account.
+     *
+     * @param string $username the currently logged in user
+     *
+     * @return bool [true if the deletion process succeeded, false otherwise]
+     */
+    public static function deleteAccount($username)
+    {
+        $result = self::where('username', $username)->delete();
+
+        return $result;
+    }
 }
