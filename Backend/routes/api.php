@@ -16,7 +16,7 @@ use App\Http\Controllers\AuthenticationController;
 */
 
 Route::prefix('auth')->middleware('jwt:api')->group(function () {
-    
+
 });
 
 Route::prefix('unauth')->group(function () {
@@ -25,6 +25,6 @@ Route::prefix('unauth')->group(function () {
 
 });
 
-Route::prefix('admin')->middleware('jwt:api')->group(function() {
+Route::prefix('admin')->middleware('jwt-admin:api')->group(function() {
 
 });
