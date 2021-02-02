@@ -13,6 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        MatchSeeder::run();
+        RefereeSeeder::run();
+        StadiumSeeder::run();
+        TeamSeeder::run();
+        TicketSeeder::run();
+        UserSeeder::run();
     }
 }

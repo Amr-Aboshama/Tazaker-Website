@@ -22,7 +22,9 @@ class StadiumFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->unique()->city,
+            'row_count' => $this->faker->randomNumber(2),
+            'column_count' => $this->faker->randomNumber(2),
         ];
     }
 }
