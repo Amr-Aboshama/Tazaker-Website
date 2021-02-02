@@ -31,7 +31,7 @@ class StadiumController extends Controller
         );
 
         return response()->json([
-            'sucess' => true,
+            'success' => true,
             'stadium' => $stadium,
         ], 200);
 
@@ -42,7 +42,7 @@ class StadiumController extends Controller
         $stadiums = Stadium::getStadiums();
 
         return response()->json([
-            'sucess' => true,
+            'success' => true,
             'stadiums' => $stadiums,
         ], 200);
     }
