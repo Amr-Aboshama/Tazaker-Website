@@ -43,7 +43,7 @@ class AuthenticationController extends Controller
             'role' => $user->role,
         ];
 
-        if($user->role.equalTo('Manager'))
+        if($user->role == 'Manager')
             $response['approved'] = $user->approved;
 
         return response()->json(
