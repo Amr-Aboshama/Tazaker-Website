@@ -15,13 +15,13 @@ class AuthenticationController extends Controller
     public function signIn(Request $request)
     {
         $valid = Validator::make($request->all(), [
-            'username' => 'required|min:4',
-            'password' => 'required|min:8',
+            'username' => ['required', 'min:4'],
+            'password' => ['required', 'min:8'],
         ]);
 
         if ($valid->fails()) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'error' => 'Invalid or some data missed',
             ], 422);
         }
@@ -30,7 +30,7 @@ class AuthenticationController extends Controller
 
         if (!$token = Auth::attempt($credentials)) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'error' => 'username and password is not matching',
             ], 404);
         }
@@ -38,7 +38,7 @@ class AuthenticationController extends Controller
         $user = Auth::user();
 
         $response = [
-            'success' => 'true',
+            'success' => true,
             'token' => $token,
             'role' => $user->role,
         ];
@@ -67,7 +67,7 @@ class AuthenticationController extends Controller
 
         if ($valid->fails()) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'error' => 'Invalid or some data missed',
             ], 422);
         }
@@ -89,7 +89,7 @@ class AuthenticationController extends Controller
         $token = Auth::login($user);
 
         return response()->json([
-            'success' => 'true',
+            'success' => true,
             'token' => $token,
         ], 200);
     }
