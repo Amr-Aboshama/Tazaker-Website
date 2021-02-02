@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\MatchController;
+use App\Http\Controllers\StadiumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +24,15 @@ Route::prefix('auth')->middleware('jwt:api')->group(function () {
 Route::prefix('unauth')->group(function () {
     Route::post('/signUp', [AuthenticationController::class, 'signUp']);
     Route::post('/signIn', [AuthenticationController::class, 'signIn']);
+    Route::get('/viewMatchDetails', [MatchController::class, 'viewMatchDetails']);
 
 });
 
 Route::prefix('admin')->middleware('jwt-admin:api')->group(function() {
 
+});
+
+Route::prefix('manager')->middleware('jwt-manager:api')->group(function() {
+    Route::post('/addStadium', [StadiumController::class, 'addStadium']);
+    Route::get('/viewStadiums', [StadiumController::class, 'viewStadiums']);
 });
