@@ -5,9 +5,10 @@ namespace App\Http\Middleware;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 
-class JWTMiddleware extends BaseMiddleware
+class JWTAdminMiddleware extends BaseMiddleware
 {
     /**
      * Handle an incoming request.
@@ -21,12 +22,17 @@ class JWTMiddleware extends BaseMiddleware
         try {
             $this->authenticate($request);
 
+            $user = auth()->user();
+
+            if($user->role != 'Admin')
+                throw new UnauthorizedHttpException('jwt-auth', 'User is not authorized');
         } catch (Exception $e) {
             return response()->json([
                 'success' => 'false',
                 'message' => 'UnAuthorized access',
             ]);
         }
+
 
         return $next($request);
     }

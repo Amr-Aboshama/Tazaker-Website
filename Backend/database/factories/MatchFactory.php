@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Match;
+use App\Models\Matches;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MatchFactory extends Factory
@@ -12,7 +12,7 @@ class MatchFactory extends Factory
      *
      * @var string
      */
-    protected $model = Match::class;
+    protected $model = Matches::class;
 
     /**
      * Define the model's default state.

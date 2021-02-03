@@ -11,7 +11,7 @@ class TicketSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public static function run()
     {
         //
     }

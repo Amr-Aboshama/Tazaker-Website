@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Referee;
 use Illuminate\Database\Seeder;
 
 class RefereeSeeder extends Seeder
@@ -11,8 +12,10 @@ class RefereeSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public static function run()
     {
-        //
+        Referee::factory()
+            ->count(20)
+            ->create();
     }
 }

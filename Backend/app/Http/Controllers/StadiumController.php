@@ -4,82 +4,46 @@ namespace App\Http\Controllers;
 
 use App\Models\Stadium;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class StadiumController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function addStadium(Request $request)
     {
-        //
+        $valid = Validator::make($request->all(),[
+            'name' => ['required', 'alpha_num', 'unique:stadia'],
+            'width' => ['required', 'numeric'],
+            'length' => ['required', 'numeric'],
+        ]);
+
+
+        if ($valid->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Invalid or some data missed',
+            ], 422);
+        }
+
+        $stadium = Stadium::storeStadium(
+            $request->name,
+            $request->width,
+            $request->length
+        );
+
+        return response()->json([
+            'success' => true,
+            'stadium' => $stadium,
+        ], 200);
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function viewStadiums(Request $request)
     {
-        //
-    }
+        $stadiums = Stadium::getStadiums();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Stadium  $stadium
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Stadium $stadium)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Stadium  $stadium
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Stadium $stadium)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Stadium  $stadium
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Stadium $stadium)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Stadium  $stadium
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Stadium $stadium)
-    {
-        //
+        return response()->json([
+            'success' => true,
+            'stadiums' => $stadiums,
+        ], 200);
     }
 }

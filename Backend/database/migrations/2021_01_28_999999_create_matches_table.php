@@ -17,18 +17,19 @@ class CreateMatchesTable extends Migration
             $table->id();
             $table->string('home_team');
             $table->string('away_team');
-            $table->string('stadium');
-            $table->dateTime('date');
-            $table->unsignedBigInteger('main_referee_id');
-            $table->unsignedBigInteger('linesman1_id');
-            $table->unsignedBigInteger('linesman2_id');
+            $table->string('match_venue');
+            $table->date('date');
+            $table->time('time');
+            $table->string('main_referee');
+            $table->string('first_linesman');
+            $table->string('second_linesman');
 
             $table->foreign('home_team')->references('name')->on('teams')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('away_team')->references('name')->on('teams')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('stadium')->references('name')->on('stadia')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('main_referee_id')->references('id')->on('referees')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('linesman1_id')->references('id')->on('referees')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('linesman2_id')->references('id')->on('referees')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('match_venue')->references('name')->on('stadia')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('main_referee')->references('name')->on('referees')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('first_linesman')->references('name')->on('referees')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('second_linesman')->references('name')->on('referees')->onUpdate('cascade')->onDelete('cascade');
 
         });
 

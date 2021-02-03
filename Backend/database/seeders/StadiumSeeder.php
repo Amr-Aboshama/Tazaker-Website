@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Stadium;
 use Illuminate\Database\Seeder;
 
 class StadiumSeeder extends Seeder
@@ -11,8 +12,10 @@ class StadiumSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public static function run()
     {
-        //
+        Stadium::factory()
+            ->count(20)
+            ->create();
     }
 }
