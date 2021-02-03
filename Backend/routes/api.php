@@ -39,3 +39,7 @@ Route::prefix('manager')->middleware('jwt-manager:api')->group(function() {
     Route::get('/viewStadiums', [StadiumController::class, 'viewStadiums']);
     Route::post('/createMatch', [MatchController::class, 'createMatch']);
 });
+
+Route::prefix('fan')->middleware('jwt-fan:api')->group(function() {
+    Route::post('/reserveTickets', [TicketController::class, 'reserveTickets']);
+});
