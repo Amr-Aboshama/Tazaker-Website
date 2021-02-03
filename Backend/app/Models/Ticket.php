@@ -27,4 +27,11 @@ class Ticket extends Model
 
     protected $primaryKey = 'username';
     protected $keyType = 'string';
+
+    public static function getReservedTicketsByMatchID($match_id)
+    {
+        return self::where('match_id', '=', $match_id)
+            ->select('seat_row', 'seat_column')
+            ->get();
+    }
 }
