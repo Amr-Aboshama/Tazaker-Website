@@ -19,7 +19,7 @@ use App\Http\Controllers\TicketController;
 */
 
 Route::prefix('auth')->middleware('jwt:api')->group(function () {
-
+    Route::post('/changePassword', [AuthenticationController::class, 'changePassword']);
 });
 
 Route::prefix('unauth')->group(function () {
@@ -27,7 +27,7 @@ Route::prefix('unauth')->group(function () {
     Route::post('/signIn', [AuthenticationController::class, 'signIn']);
     Route::get('/viewMatchDetails', [MatchController::class, 'viewMatchDetails']);
     Route::get('/viewMatches', [MatchController::class, 'viewMatches']);
-    Route::get('/viewSeatsDetails', [TicketController::class, 'viewSeatsDetails']);
+    Route::get('/viewSeatsStatus', [TicketController::class, 'viewSeatsStatus']);
 });
 
 Route::prefix('admin')->middleware('jwt-admin:api')->group(function() {
