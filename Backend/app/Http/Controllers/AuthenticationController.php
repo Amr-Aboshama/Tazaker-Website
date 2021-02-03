@@ -58,7 +58,7 @@ class AuthenticationController extends Controller
             'password' => ['required','confirmed','min:8'],
             'first_name' => ['required', 'alpha_dash'],
             'last_name' => ['required', 'alpha_dash'],
-            'birthdate' => ['required', 'date', 'after:1-1-1920', 'before:1-1-2017'],
+            'birthdate' => ['required', 'date_format:Y-m-d', 'after:1-1-1920', 'before:1-1-2017'],
             'gender' => ['required', Rule::in(['M', 'F'])],
             'city' => ['required'],
             'role' => ['required', Rule::in('Manager', 'Fan')],
@@ -72,7 +72,6 @@ class AuthenticationController extends Controller
             ], 422);
         }
 
-        $date = Carbon::parse($request->birthdate);
 
         $user = User::storeUser([
             'username' => $request->username,
@@ -80,7 +79,7 @@ class AuthenticationController extends Controller
             'email' => $request->email,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'birthdate' => $date->format('Y-m-d'),
+            'birthdate' => $request->birthdate,
             'gender' => $request->gender,
             'city' => $request->city,
             'role' => $request->role,
