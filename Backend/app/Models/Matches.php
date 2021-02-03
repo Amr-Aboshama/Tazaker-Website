@@ -55,4 +55,12 @@ class Matches extends Model
             ->pluck('match_venue')
             ->first();
     }
+
+    public static function getMatchDate($match_id)
+    {
+        return self::where('id', '=', $match_id)
+            ->select('date')
+            ->pluck('date')
+            ->first();
+    }
 }

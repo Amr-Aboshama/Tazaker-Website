@@ -42,4 +42,17 @@ class Ticket extends Model
             ->where('seat_column', '=', $seat_column)
             ->exists();
     }
+
+    public static function getTicketUserAndMatchId($id)
+    {
+        return self::where('id', '=', $id)
+            ->select('username', 'match_id')
+            ->first();
+    }
+
+    public static function deleteTicket($id)
+    {
+        return self::where('id', '=', $id)
+            ->delete();
+    }
 }

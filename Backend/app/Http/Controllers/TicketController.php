@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Matches;
 use App\Models\Stadium;
 use App\Models\Ticket;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -99,5 +100,45 @@ class TicketController extends Controller
             'success' => true,
             'reserved_tickets' => $reserved_tickets,
         ], 200);
+    }
+
+    public function cancelTicket(Request $request)
+    {
+        $valid = Validator::make($request->all(), [
+            'ticket_id' => ['required', 'integer', 'exists:tickets,id']
+        ]);
+
+        if ($valid->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Invalid or some data missed',
+            ], 422);
+        }
+
+        $user = Auth::user();
+
+        $ticket_data = Ticket::getTicketUserAndMatchId($request->ticket_id);
+        $match_date = Matches::getMatchDate($ticket_data->match_id);
+
+
+        $match_date = Carbon::parse($match_date);
+        $current_date = Carbon::now();
+        $diff = $match_date->diffInDays($current_date);
+        $futureMatch = $current_date->isBefore($match_date);
+
+        if (!$futureMatch || $diff < 3 || $ticket_data->username != $user->username) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Invalid or some data missed',
+            ], 422);
+        }
+
+        $ticket = Ticket::deleteTicket($request->ticket_id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Ticket is deleted successfully',
+        ], 200);
+
     }
 }
