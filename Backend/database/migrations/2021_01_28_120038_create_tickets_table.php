@@ -19,7 +19,7 @@ class CreateTicketsTable extends Migration
             $table->integer('seat_row');
             $table->integer('seat_column');
 
-            $table->primary(['username', 'match_ID', 'seat_row', 'seat_column']);
+            $table->primary(['seat_row', 'seat_column']);
 
             $table->foreign('username')->references('username')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });

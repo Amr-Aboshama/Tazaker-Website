@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\MatchController;
 use App\Http\Controllers\StadiumController;
+use App\Http\Controllers\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,7 @@ Route::prefix('unauth')->group(function () {
     Route::post('/signIn', [AuthenticationController::class, 'signIn']);
     Route::get('/viewMatchDetails', [MatchController::class, 'viewMatchDetails']);
     Route::get('/viewMatches', [MatchController::class, 'viewMatches']);
-
+    Route::get('/viewSeatsDetails', [TicketController::class, 'viewSeatsDetails']);
 });
 
 Route::prefix('admin')->middleware('jwt-admin:api')->group(function() {
