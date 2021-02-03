@@ -21,20 +21,29 @@ class Matches extends Model
     protected $fillable = [
         'home_team',
         'away_team',
-        'stadium',
+        'match_venue',
         'date',
-        'main_referee_id',
-        'linesman1_id',
-        'linesman2_id',
+        'time',
+        'main_referee',
+        'first_linesman',
+        'second_linesman',
     ];
 
-    protected $primaryKey = 'name';
-    protected $keyType = 'string';
-
+    public static function storeMatch($match_details)
+    {
+        return self::create($match_details);
+    }
 
     public static function getMatchDetails($match_id)
     {
-        $match = self::where('match_id', '=', $match_id);
-        
+        return self::where('id', '=', $match_id)
+            ->get()->first();
+
+    }
+
+    public static function getMatches()
+    {
+        return self::select('id', 'home_team', 'away_team', 'date')
+            ->get();
     }
 }

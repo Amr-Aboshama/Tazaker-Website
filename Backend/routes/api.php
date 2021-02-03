@@ -25,6 +25,7 @@ Route::prefix('unauth')->group(function () {
     Route::post('/signUp', [AuthenticationController::class, 'signUp']);
     Route::post('/signIn', [AuthenticationController::class, 'signIn']);
     Route::get('/viewMatchDetails', [MatchController::class, 'viewMatchDetails']);
+    Route::get('/viewMatches', [MatchController::class, 'viewMatches']);
 
 });
 
@@ -35,4 +36,5 @@ Route::prefix('admin')->middleware('jwt-admin:api')->group(function() {
 Route::prefix('manager')->middleware('jwt-manager:api')->group(function() {
     Route::post('/addStadium', [StadiumController::class, 'addStadium']);
     Route::get('/viewStadiums', [StadiumController::class, 'viewStadiums']);
+    Route::post('/createMatch', [MatchController::class, 'createMatch']);
 });
