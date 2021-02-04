@@ -44,19 +44,12 @@ class AuthenticationController extends Controller
             ], 402);
         }
 
-        $response = [
+
+        return response()->json([
             'success' => true,
             'token' => $token,
             'role' => $user->role,
-        ];
-
-        if ($user->role == 'Manager')
-            $response['approved'] = $user->approved;
-
-        return response()->json(
-            $response,
-            200
-        );
+        ], 200);
     }
 
     public function signUp(Request $request)
