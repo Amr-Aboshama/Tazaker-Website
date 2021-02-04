@@ -28,6 +28,13 @@ class TicketController extends Controller
 
         $tickets = Ticket::getReservedTicketsByMatchID($request->match_id);
 
+        if(Auth::check())
+        {
+            $user = Auth::user();
+            if($user->role == 'Manager' && $user->approved)
+                $tickets = Ticket::getReservedTicketsByMatchIDForManager($request->match_id);
+        }
+
         $stadium = Matches::getMatchStadium($request->match_id);
 
         $stadium_shape = Stadium::getStadiumShape($stadium);
