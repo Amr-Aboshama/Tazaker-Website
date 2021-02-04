@@ -57,8 +57,7 @@ class Matches extends Model
     public static function getMatchDate($match_id)
     {
         return self::where('id', '=', $match_id)
-            ->select('date')
-            ->pluck('date')
+            ->select('date', 'time')
             ->first();
     }
 }

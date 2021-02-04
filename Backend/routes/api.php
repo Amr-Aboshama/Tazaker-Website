@@ -48,4 +48,5 @@ Route::prefix('manager')->middleware('jwt-manager:api')->group(function() {
 Route::prefix('fan')->middleware('jwt-fan:api')->group(function() {
     Route::post('/reserveTickets', [TicketController::class, 'reserveTickets']);
     Route::delete('/cancelTicket', [TicketController::class, 'cancelTicket']);
+    Route::get('/viewFutureTickets', [TicketController::class, 'viewFutureTickets']);
 });

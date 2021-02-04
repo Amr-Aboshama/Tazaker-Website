@@ -55,4 +55,10 @@ class Ticket extends Model
         return self::where('id', '=', $id)
             ->delete();
     }
+
+    public static function getUserTickets($username)
+    {
+        return self::where('username', '=', $username)
+            ->get();
+    }
 }
