@@ -9,8 +9,7 @@
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content" >
-      <a href="#">Approve users</a>
-      <a href="#">Remove users</a>
+      <a [routerLink]="['/pending']" > Pending users</a>
     </div>
   </div>
 <!-- Manager-->
@@ -21,7 +20,6 @@
   <div class="dropdown-content" >
     <a [routerLink]="['/match']">Add match</a>
     <a [routerLink]="['/stadium']">Add staduim</a>
-    <a href="#">Seats</a>
   </div>
 </div>
 
@@ -32,7 +30,7 @@
   </button>
   <div class="dropdown-content" >
     <a href="#">Edit data</a>
-    <a href="#">Reservations</a>
+    <a [routerLink]="['/reservataions']">Reservations</a>
   </div>
 </div>
 

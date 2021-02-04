@@ -13,7 +13,7 @@
 
 
           <form  [formGroup]="this.matchForm" >
-            {{this.matchForm.value | json}}
+
             <div class="relative w-full mb-3">
               <label
                 class="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -65,11 +65,8 @@
 
               />
             </div>
-
-
-
             <div class="h-20 flex flex-wrap content-start ">
-              <div class="pr-8">
+              <div class="md:pr-8">
               <label
                 class="block uppercase text-gray-700 text-xs font-bold mb-2"
                 htmlFor="date"
@@ -86,7 +83,7 @@
               />
             </div>
               <!-- test -->
-              <div class="pr-8">
+              <div class="md:pr-8">
               <label
                 class="block uppercase text-gray-700 text-xs font-bold mb-2"
                 htmlFor="time"
@@ -163,8 +160,9 @@
             <div class="text-center mt-12">
               <button
                 class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                type="button" (click)="addMatch()">
-                Add match
+                type="button"  (click)="ChooseMode()">
+
+                {{this.EditMode ? "Update Match" : "Add Match"}}
               </button>
             </div>
           </form>

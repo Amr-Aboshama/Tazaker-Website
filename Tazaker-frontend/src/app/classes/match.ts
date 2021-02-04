@@ -9,6 +9,7 @@ export class match{
   First_linesman: string;
   Second_linesman: string;
   id: number;
+  Stadium_id: number;
 
 
 

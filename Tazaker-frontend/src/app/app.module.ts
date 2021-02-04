@@ -11,6 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
 import { StadiumComponent } from './manager/stadium/stadium.component';
 import { NavbarComponent } from './tools/navbar/navbar.component';
+import { SeatsComponent } from './manager/seats/seats.component';
+import { PendingComponent } from './admins/pending/pending.component';
+import { ReservationsComponent } from './fan/reservations/reservations.component';
 
 
 
@@ -23,7 +26,10 @@ import { NavbarComponent } from './tools/navbar/navbar.component';
     SignupComponent,
     ProfileComponent,
     StadiumComponent,
-    NavbarComponent
+    NavbarComponent,
+    SeatsComponent,
+    PendingComponent,
+    ReservationsComponent
   ],
   imports: [
     BrowserModule,

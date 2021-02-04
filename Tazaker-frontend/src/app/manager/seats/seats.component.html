@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<div class="bg">
+  <div class="container mx-auto  px-4 h-full">
+    <div class="flex content-center items-center justify-center h-full">
+    <div class="w-full md:px-4 md:m-8">
+
+            <ng-container class="m-4" *ngFor="let seat of seats; let i = index">
+              <a class="py-2 md:m-4">
+                <button id="buttonStyle" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                >
+                 {{i}}
+                </button>
+              </a>
+              <br *ngIf="(i+1)%Stadium.length == 0">
+              <br *ngIf="(i+1)%Stadium.length == 0">
+          </ng-container>
+
+    </div>
+
+  </div>
+
+  </div>
+</div>

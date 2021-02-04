@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiService } from '../api.service';
+
 
 @Component({
   selector: 'app-signup',
@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit {
   genders: Array<any> = ['Male', 'Female'];
   roles: Array<any> = ['Manager', 'Fan'];
   cities: Array<any> = ["Cairo", "Alexandria", "Aswan", "	Asyut", "	Beheira", "Beni Suef", "Cairo", "Dakahlia", "Damietta", "Faiyum", "Gharbia", "Giza", "Ismailia", "Kafr El Sheikh", "Luxor", "Matruh", "Minya", "Monufia", "New Valley", "North Sinai", "Port Said", "Qalyubia", "Qena", "Red Sea", "Sharqia", "Sohag", "South Sinai", "Suez"];
-  
+
   valid = {
     username: true,
     firstname: true,
@@ -31,8 +31,8 @@ export class SignupComponent implements OnInit {
     password: true,
   };
 
-  constructor() { 
-    
+  constructor() {
+
   }
 
   ngOnInit(): void { }

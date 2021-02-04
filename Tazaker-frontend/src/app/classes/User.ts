@@ -1,14 +1,16 @@
+import { seat } from './seat';
 export class User{
 
-Username : number;
+User_name : number;
 Password: number;
 First_name: string;
-Last_name: string;
-BirthDate: Date;
+last_name: string;
+Birth_date: Date;
 Gender: string;
 city: string;
 Address: string;
-Email: string;
-Role : number;
+email: string;
+id : number;
 
+seats:seat;
 }

@@ -2,6 +2,7 @@ import { match } from './../classes/match';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { HomeService } from './home.service';
+import { User } from '../classes/User';
 
 
 
@@ -11,8 +12,9 @@ import { HomeService } from './home.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  baseURL: string = "http://localhost:3000/";
+
   Matches: match[];
+  Users: User[];
   id: number=parseInt( this.route.snapshot.params['id'] );
 
 
@@ -21,15 +23,42 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if (this.id != 0  ){
+
     this.HttpService.getmatches().subscribe(
       data => {
         this.Matches = data,
         (err: any) => console.log(err),
         console.log(this.Matches)
       });
+    }
+    else
+    {
+      this.RefreshApprovedUsers()
+
+    }
 
 
   }
+
+
+//for admin
+removeUser(Userid: number){
+  this.HttpService.removeUserbyid(Userid).subscribe(
+    data => {
+      (err: any) => console.log(err)
+      this.RefreshApprovedUsers();
+    });
+}
+
+RefreshApprovedUsers(){
+  this.HttpService.getApprovedusers().subscribe(
+    data => {
+      this.Users = data,
+      (err: any) => console.log(err),
+      console.log(this.Users)
+    });
+}
 
 
 

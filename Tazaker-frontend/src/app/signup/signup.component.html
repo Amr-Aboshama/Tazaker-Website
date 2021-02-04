@@ -1,15 +1,16 @@
 <div class="bg">
 <app-navbar></app-navbar>
 <div class="container mx-auto  px-4 h-full">
+  <div class="md:py-4">
   <div class="flex content-center items-center justify-center h-full">
 
     <!-- Signup form -->
     <div class="bg-white p-16 rounded shadow-2xl w-2/3">
-  
+
       <h2 class="text-center text-2xl font-bold mb-10 text-gray-800">Create Your Account</h2>
-      
+
       <form class="space-y-3">
-        
+
         <div>
           <label class="block mb-1 font-bold text-gray-500" placeholder="First Name">First Name</label>
           <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="First Name" (keyup)="onKey($event, 'firstname')">
@@ -37,7 +38,7 @@
           <label class="block mb-1 font-bold text-gray-500">Username</label>
           <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="Username" (keyup)="onKey($event, 'firstname')">
         </div>
-  
+
         <div>
           <label class="block mb-1 font-bold text-gray-500">Password</label>
           <input type="password" class="w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="**************" (keyup)="onKey($event, 'password')">
@@ -68,14 +69,15 @@
               <option class="py-1" *ngFor="let role of roles">{{role}}</option>
             </select>
         </div>
-        
+
         <br>
 
         <button class="block w-full  bg-gray-400 p-4 rounded text-gray-800 hover:text-yellow-800 transition duration-200">Sign Up</button>
       </form>
-  
+
     </div>
-  
+
   </div>
+</div>
 </div>
 </div>

@@ -20,6 +20,15 @@ export class MatchService {
   }
 
   getMatchbyid(id):Observable<any>{
-    return this.http.get<any>("http://localhost:3000/match/"+id)
+    return this.http.get<any>(this.baseURL+"match/"+id)
   }
+
+  EditMatch(match:match,id:number):Observable<any>{
+    const headers = { 'content-type': 'application/json'}
+    const body=JSON.stringify(match);
+    console.log(body)
+    return this.http.put(this.baseURL + 'match/'+id , body,{'headers':headers})
+  }
+
+
 }
