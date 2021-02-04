@@ -11,73 +11,67 @@
       <form class="space-y-3">
         
         <div>
-          <label class="block mb-1 font-bold text-gray-500">First Name</label>
-          <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none">
+          <label class="block mb-1 font-bold text-gray-500" placeholder="First Name">First Name</label>
+          <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="First Name" (keyup)="onKey($event, 'firstname')">
         </div>
 
         <div>
           <label class="block mb-1 font-bold text-gray-500">Last Name</label>
-          <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none">
+          <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="Last Name" (keyup)="onKey($event, 'lastname')">
         </div>
 
-        <div class="mt-4">
+        <div>
           <label class="block mb-1 font-bold text-gray-500">Gender</label>
-          <div class="mt-2">
-            <label class="inline-flex items-center">
-              <input type="radio" class="form-radio" name="gender" value="male" checked>
-              <span class="ml-2">Male</span>
-            </label>
-            <label class="inline-flex items-center ml-6">
-              <input type="radio" class="form-radio" name="gender" value="female">
-              <span class="ml-2">Female</span>
-            </label>
-          </div>
+            <select class="w-full border-2 bg-white border-gray-200 rounded px-3 py-3 outline-none" placeholder="Gender">
+              <option class="py-1">-- Choose Gender --</option>
+              <option class="py-1" *ngFor="let gender of genders">{{gender}}</option>
+            </select>
         </div>
 
         <div>
           <label class="block mb-1 font-bold text-gray-500">Email</label>
-          <input type="email" class="w-full border-2 border-gray-200 p-3 rounded outline-none">
+          <input type="email" class="w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="Email" (keyup)="onKey($event, 'email')">
         </div>
 
         <div>
           <label class="block mb-1 font-bold text-gray-500">Username</label>
-          <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none">
+          <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="Username" (keyup)="onKey($event, 'firstname')">
         </div>
   
         <div>
           <label class="block mb-1 font-bold text-gray-500">Password</label>
-          <input type="password" class="w-full border-2 border-gray-200 p-3 rounded outline-none">
+          <input type="password" class="w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="**************" (keyup)="onKey($event, 'password')">
         </div>
 
         <div>
           <label class="block mb-1 font-bold text-gray-500">Confirm Password</label>
-          <input type="password" class="w-full border-2 border-gray-200 p-3 rounded outline-none">
+          <input type="password" class="w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="**************" (keyup)="onKey($event, 'confirmPassword')">
         </div>
 
         <div>
           <label class="block mb-1 font-bold text-gray-500">City</label>
-            <select class="w-full border-2 bg-white border-gray-200 rounded px-3 py-3 outline-none">
-              <option class="py-1">Option 1</option>
-              <option class="py-1">Option 2</option>
+            <select class="w-full border-2 bg-white border-gray-200 rounded px-3 py-3 outline-none" placeholder="City">
+              <option class="py-1">-- Choose City --</option>
+              <option class="py-1" *ngFor="let city of cities">{{city}}</option>
             </select>
         </div>
 
         <div>
           <label class="block mb-1 font-bold text-gray-500">Address</label>
-          <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none">
+          <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="Address" (keyup)="onKey($event, 'address')">
         </div>
 
         <div>
           <label class="block mb-1 font-bold text-gray-500">Role</label>
-            <select class="w-full border-2 bg-white border-gray-200 rounded px-3 py-3 outline-none">
-              <option class="py-1">Manager</option>
-              <option class="py-1">Fan</option>
+            <select class="w-full border-2 bg-white border-gray-200 rounded px-3 py-3 outline-none" placeholder="Role">
+              <option class="py-1">-- Choose Role --</option>
+              <option class="py-1" *ngFor="let role of roles">{{role}}</option>
             </select>
         </div>
-
+        
         <br>
+
         <button class="block w-full  bg-gray-400 p-4 rounded text-gray-800 hover:text-yellow-800 transition duration-200">Sign Up</button>
-  
       </form>
   
     </div>
