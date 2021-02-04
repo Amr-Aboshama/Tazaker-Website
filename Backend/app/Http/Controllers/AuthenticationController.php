@@ -31,11 +31,18 @@ class AuthenticationController extends Controller
         if (!$token = Auth::attempt($credentials)) {
             return response()->json([
                 'success' => false,
-                'error' => 'Username and password is not matching',
+                'error' => 'Username and password is not matching.',
             ], 402);
         }
 
         $user = Auth::user();
+        if ($user->role == 'Manager' && $user->approved == 0) {
+            Auth::logout();
+            return response()->json([
+                'success' => false,
+                'error' => 'Your account has not been approved as a Manager yet.',
+            ], 402);
+        }
 
         $response = [
             'success' => true,
