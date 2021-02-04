@@ -9,8 +9,6 @@ class Ticket extends Model
 {
     use HasFactory;
 
-    public $incrementing = false; //so eloquent doesn't expect your primary key to be an autoincrement primary key.
-
     public $timestamps = false; // To cancel expectations of updated_at and created_at tables.
 
     /**
@@ -25,6 +23,36 @@ class Ticket extends Model
         'seat_column',
     ];
 
-    protected $primaryKey = 'username';
-    protected $keyType = 'string';
+    public static function getReservedTicketsByMatchID($match_id)
+    {
+        return self::where('match_id', '=', $match_id)
+            ->select('seat_row', 'seat_column')
+            ->get();
+    }
+
+    public static function storeTicket($ticket_data)
+    {
+        return self::create($ticket_data);
+    }
+
+    public static function isSeatReserved($match_id, $seat_row, $seat_column)
+    {
+        return self::where('match_id', '=', $match_id)
+            ->where('seat_row', '=', $seat_row)
+            ->where('seat_column', '=', $seat_column)
+            ->exists();
+    }
+
+    public static function getTicketUserAndMatchId($id)
+    {
+        return self::where('id', '=', $id)
+            ->select('username', 'match_id')
+            ->first();
+    }
+
+    public static function deleteTicket($id)
+    {
+        return self::where('id', '=', $id)
+            ->delete();
+    }
 }

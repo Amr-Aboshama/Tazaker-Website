@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Stadium;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class StadiumSeeder extends Seeder
 {
@@ -17,5 +18,12 @@ class StadiumSeeder extends Seeder
         Stadium::factory()
             ->count(20)
             ->create();
+
+        DB::table('stadia')
+            ->insert([
+                'name' => 'Cairo',
+                'row_count' => 5,
+                'column_count' => 5,
+            ]);
     }
 }

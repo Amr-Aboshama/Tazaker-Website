@@ -48,4 +48,11 @@ class Stadium extends Model
         return self::all();
     }
 
+    public static function getStadiumShape($stadium_name)
+    {
+        return self::where('name', '=', $stadium_name)
+            ->select('row_count', 'column_count')
+            ->get()
+            ->first();
+    }
 }

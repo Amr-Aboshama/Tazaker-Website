@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        MatchSeeder::run();
         RefereeSeeder::run();
+        UserSeeder::run();
         StadiumSeeder::run();
         TeamSeeder::run();
+        MatchSeeder::run();
         TicketSeeder::run();
-        UserSeeder::run();
     }
 }

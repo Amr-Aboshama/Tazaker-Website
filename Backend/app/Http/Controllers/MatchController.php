@@ -2,84 +2,97 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Match;
+use App\Models\Matches;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class MatchController extends Controller
 {
-    /**
-     * Display a listing of the resource.
+    /* Deprecated
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+     *
+        public function viewMatchDetails(Request $request)
+        {
+            $valid = Validator::make($request->all(), [
+                'match_id' => ['required', 'integer', 'exists:matches,id'],
+            ]);
+
+            if ($valid->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'Invalid or some data missed',
+                ], 422);
+            }
+
+            $match = Matches::getMatchDetails($request->match_id);
+
+            return response()->json([
+                'success' => true,
+                'match' => $match,
+            ], 200);
+        }
+    */
+
+    public function viewMatches(Request $request)
     {
-        //
+        if ($request->has('match_id')) {
+            $valid = Validator::make($request->all(), [
+                'match_id' => ['integer', 'exists:matches,id'],
+            ]);
+
+            if ($valid->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'Invalid or some data missed',
+                ], 422);
+            }
+            $matches = Matches::getMatchDetails($request->match_id);
+        } else {
+            $matches = Matches::getMatches();
+        }
+
+
+        return response()->json([
+            'success' => true,
+            'matches' => $matches,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function createMatch(Request $request)
     {
-        //
-    }
+        $valid = Validator::make($request->all(), [
+            'home_team' => ['required', 'string', 'exists:teams,name'],
+            'away_team' => ['required', 'string', 'exists:teams,name', Rule::notIn($request->home_team)],
+            'match_venue' => ['required', 'string', 'exists:stadia,name'],
+            'date' => ['required', 'date_format:Y-m-d', 'after:today'],
+            'time' => ['required', 'date_format:H:i'],
+            'main_referee' => ['required', 'string', 'exists:referees,name'],
+            'first_linesman' => ['required', 'string', 'exists:referees,name', Rule::notIn($request->main_referee)],
+            'second_linesman' => ['required', 'string', 'exists:referees,name', Rule::notIn([$request->main_referee, $request->first_linesman])],
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if ($valid->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Invalid or some data missed',
+            ], 422);
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Match  $match
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Match $match)
-    {
-        //
-    }
+        $match = Matches::storeMatch([
+            'home_team' => $request->home_team,
+            'away_team' => $request->away_team,
+            'match_venue' => $request->match_venue,
+            'date' => $request->date,
+            'time' => $request->time,
+            'main_referee' => $request->main_referee,
+            'first_linesman' => $request->first_linesman,
+            'second_linesman' => $request->second_linesman,
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Match  $match
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Match $match)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Match  $match
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Match $match)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Match  $match
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Match $match)
-    {
-        //
+        return response()->json([
+            'success' => true,
+            'match_id' => $match->id,
+        ]);
     }
 }

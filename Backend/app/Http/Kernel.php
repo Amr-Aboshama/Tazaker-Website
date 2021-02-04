@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'jwt' => \App\Http\Middleware\JWTMiddleware::class,
         'jwt-admin' => \App\Http\Middleware\JWTAdminMiddleware::class,
         'jwt-manager' => \App\Http\Middleware\JWTManagerMiddleware::class,
+        'jwt-fan' => \App\Http\Middleware\JWTFanMiddleware::class,
     ];
 }

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Team;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TeamSeeder extends Seeder
 {
@@ -17,5 +18,15 @@ class TeamSeeder extends Seeder
         Team::factory()
             ->count(20)
             ->create();
+
+        DB::table('teams')
+            ->insert([
+                'name' => 'Al-Ahly',
+            ]);
+
+        DB::table('teams')
+            ->insert([
+                'name' => 'Bayern Munchien',
+            ]);
     }
 }
