@@ -21,7 +21,7 @@ class AdminController extends Controller
         ], 200);
     }
 
-    public function approveOrDisapproveManagers(Request $request)
+    public function approveOrDisapproveManager(Request $request)
     {
 
         $valid = Validator::make($request->all(), [
