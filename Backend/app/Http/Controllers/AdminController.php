@@ -11,64 +11,66 @@ class AdminController extends Controller
 {
     //
 
-    public function showNonApprovedManagers(Request $request){
+    public function showNonApprovedManagers(Request $request)
+    {
         $managers = User::getNonApprovedManagers();
 
         return response()->json([
             'success' => true,
             'managers' => $managers
-        ],200);
-
+        ], 200);
     }
 
-    public function approveOrDisapproveManagers(Request $request){
-        if (!$request->has('usernames')) {
-            return response()->json([
-                'success' => 'false',
-                'error' => 'usernames is required',
-            ], 422);
-        }
-
+    public function approveOrDisapproveManagers(Request $request)
+    {
 
         $valid = Validator::make($request->all(), [
-            'approve' => ['required','boolean']
+            'username' => ['required', 'string', 'exists:users'],
+            'approve' => ['required', 'boolean']
         ]);
 
         if ($valid->fails()) {
             return response()->json([
                 'success' => false,
-                'error' => 'approved is required',
+                'error' => 'Invalid or some data missed',
             ], 422);
         }
 
-        $managers = $request->usernames;
-        $approve = $request->approve;
-        $approvedManagers = array();
-        foreach ($managers as  $manager) {
-            if(User::userExist($manager)&& !User::isApproved($manager)){
-                array_push($approvedManagers,$manager);
-                if($approve){
-                    User::ApproveManager($manager);
-                }
-            }
+
+        $user = User::getUserWholeRecord($request->username);
+
+        if ($user->role != 'Manager' || $user->approved) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Invalid or some data missed',
+            ], 422);
         }
+
+        $msg = '';
+        if ($request->approve) {
+            User::ApproveManager($user->username);
+            $msg = 'approved';
+        } else {
+            User::deleteAccount($user->username);
+            $msg = 'deleted';
+        }
+
+
         return response()->json([
             'success' => true,
-            'approved_managers' => $approvedManagers
-        ],200);
-
-
+            'message' => 'Manager is ' . $msg . ' successfully.',
+        ], 200);
     }
 
-    public function showAllUsers(Request $request){
+    public function showAllUsers(Request $request)
+    {
         //$user = Auth::user();
 
     }
 
-    public function removeUsers(Request $request){
+    public function removeUsers(Request $request)
+    {
         //$user = Auth::user();
 
     }
-
-
 }

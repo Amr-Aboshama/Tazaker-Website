@@ -140,18 +140,6 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * delete specific user from the database.
-     *
-     * @param string $username the username of the user that wanted to be removed
-     *
-     * @return bool [ true or false according t the deletion of the user object ].
-     */
-    public static function deleteUserByUsername($username)
-    {
-        return self::where('username', $username)->delete();
-    }
-
-    /**
      * check if the user exists in the database or not given the username.
      *
      * @param string $username the user we need to check its existance
@@ -223,8 +211,10 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public static function isApproved($username){
-        $result = self::where('username','=',$username)
-                        ->select('approved')->get()[0]['approved'];
+        $result = self::where('username', '=', $username)
+                        ->select('approved')
+                        ->first()
+                        ->pluck('approved');
         return $result;
     }
 
