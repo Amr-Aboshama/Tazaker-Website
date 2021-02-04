@@ -24,7 +24,7 @@ Route::prefix('auth')->middleware('jwt:api')->group(function () {
 Route::prefix('unauth')->group(function () {
     Route::post('/signUp', [AuthenticationController::class, 'signUp']);
     Route::post('/signIn', [AuthenticationController::class, 'signIn']);
-    Route::get('/viewMatchDetails', [MatchController::class, 'viewMatchDetails']);
+    // Route::get('/viewMatchDetails', [MatchController::class, 'viewMatchDetails']);   // Deprecated
     Route::get('/viewMatches', [MatchController::class, 'viewMatches']);
     Route::get('/viewSeatsStatus', [TicketController::class, 'viewSeatsStatus']);
 });
