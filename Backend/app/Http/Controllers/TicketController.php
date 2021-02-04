@@ -121,7 +121,7 @@ class TicketController extends Controller
         $match_date = Matches::getMatchDate($ticket_data->match_id);
 
 
-        $match_date = Carbon::parse($match_date->date.$match_date->time);
+        $match_date = Carbon::parse($match_date->date . $match_date->time);
         $current_date = Carbon::now();
         $diff = $match_date->diffInDays($current_date);
         $futureMatch = $current_date->isBefore($match_date);
@@ -139,7 +139,6 @@ class TicketController extends Controller
             'success' => true,
             'message' => 'Ticket is deleted successfully',
         ], 200);
-
     }
 
     public function viewFutureTickets(Request $request)
@@ -148,11 +147,10 @@ class TicketController extends Controller
 
         $tickets = Ticket::getUserTickets($user->username);
         $future_tickets = array();
-        foreach($tickets as $ticket)
-        {
+        foreach ($tickets as $ticket) {
             $match_date = Matches::getMatchDate($ticket->match_id);
-            $match_date = Carbon::parse($match_date->date.$match_date->time);
-            if($match_date->isBefore(Carbon::now()))
+            $match_date = Carbon::parse($match_date->date . $match_date->time);
+            if ($match_date->isBefore(Carbon::now()))
                 continue;
 
             array_push($future_tickets, $ticket);
