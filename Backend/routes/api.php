@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
@@ -29,7 +30,10 @@ Route::prefix('unauth')->group(function () {
 });
 
 Route::prefix('admin')->middleware('jwt-admin:api')->group(function() {
-
+    Route::get('/showNonApprovedManagers', [AdminController::class, 'showNonApprovedManagers']);
+    Route::put('/approveOrDisapproveManagers', [AdminController::class, 'approveOrDisapproveManagers']);
+    Route::get('/showAllUsers', [AdminController::class, 'showAllUsers']);
+    Route::delete('/removeUsers', [AdminController::class, 'removeUsers']);
 });
 
 Route::prefix('manager')->middleware('jwt-manager:api')->group(function() {

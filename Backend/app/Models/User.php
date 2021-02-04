@@ -213,4 +213,25 @@ class User extends Authenticatable implements JWTSubject
 
         return $result;
     }
+
+    public static function getNonApprovedManagers(){
+        $result = self::where('role','=','Manager')
+                    ->where('approved','=',0)
+                    ->select('username','email','first_name','last_name')
+                    ->get();
+        return $result;
+    }
+
+    public static function isApproved($username){
+        $result = self::where('username','=',$username)
+                        ->select('approved')->get()[0]['approved'];
+        return $result;
+    }
+
+    public static function ApproveManager($username){
+        $result = self::where('username','=',$username)
+                        -> update(['approved' => 1]);
+        return $result;
+    }
+
 }
