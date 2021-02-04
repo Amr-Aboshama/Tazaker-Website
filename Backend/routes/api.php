@@ -19,6 +19,7 @@ use App\Http\Controllers\TicketController;
 
 Route::prefix('auth')->middleware('jwt:api')->group(function () {
     Route::post('/changePassword', [AuthenticationController::class, 'changePassword']);
+    Route::get('/signOut', [AuthenticationController::class, 'signOut']);
 });
 
 Route::prefix('unauth')->group(function () {

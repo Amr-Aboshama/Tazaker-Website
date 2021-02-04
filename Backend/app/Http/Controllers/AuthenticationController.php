@@ -146,4 +146,13 @@ class AuthenticationController extends Controller
             'message' => 'Password changed successfully',
         ], 200);
     }
+
+    public function signOut()
+    {
+        Auth::logout();
+
+        return response()->json([
+            'success' => 'true',
+        ], 200);
+    }
 }
