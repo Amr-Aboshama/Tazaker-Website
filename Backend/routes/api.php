@@ -36,7 +36,7 @@ Route::prefix('admin')->middleware('jwt-admin:api')->group(function() {
     Route::get('/showNonApprovedManagers', [AdminController::class, 'showNonApprovedManagers']);
     Route::put('/approveOrDisapproveManager', [AdminController::class, 'approveOrDisapproveManager']);
     Route::get('/showAllUsers', [AdminController::class, 'showAllUsers']);
-    Route::delete('/removeUsers', [AdminController::class, 'removeUsers']);
+    Route::delete('/removeUser', [AdminController::class, 'removeUser']);
 });
 
 Route::prefix('manager')->middleware('jwt-manager:api')->group(function() {

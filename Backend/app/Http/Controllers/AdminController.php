@@ -64,13 +64,45 @@ class AdminController extends Controller
 
     public function showAllUsers(Request $request)
     {
-        //$user = Auth::user();
+
+        $users = User::getNotAdminUsers();
+
+        return response()->json([
+            'success' => true,
+            'users' => $users
+        ], 200);
+
 
     }
 
-    public function removeUsers(Request $request)
+    public function removeUser(Request $request)
     {
-        //$user = Auth::user();
+        $valid = Validator::make($request->all(), [
+            'username' => ['required', 'string', 'exists:users']
+        ]);
+
+        if ($valid->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Invalid or some data missed',
+            ], 422);
+        }
+
+        $deleted = User::deleteAccount($request->username);
+
+        if($deleted){
+            return response()->json([
+                'success' => true,
+                'message' => 'User is removed successfully.'
+            ],200);
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'failed to remove user.'
+                //check for 403 error code what it should be?
+            ],403);
+        }
 
     }
 }
