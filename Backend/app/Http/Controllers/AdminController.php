@@ -77,7 +77,32 @@ class AdminController extends Controller
 
     public function removeUser(Request $request)
     {
-       
+        $valid = Validator::make($request->all(), [
+            'username' => ['required', 'string', 'exists:users']
+        ]);
+
+        if ($valid->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Invalid or some data missed',
+            ], 422);
+        }
+
+        $deleted = User::deleteAccount($request->username);
+
+        if($deleted){
+            return response()->json([
+                'success' => true,
+                'message' => 'User is removed successfully.'
+            ],200);
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'failed to remove user.'
+                //check for 403 error code what it should be?
+            ],403);
+        }
 
     }
 }
