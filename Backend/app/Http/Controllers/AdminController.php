@@ -64,13 +64,20 @@ class AdminController extends Controller
 
     public function showAllUsers(Request $request)
     {
-        //$user = Auth::user();
+
+        $users = User::getNotAdminUsers();
+
+        return response()->json([
+            'success' => true,
+            'users' => $users
+        ], 200);
+
 
     }
 
-    public function removeUsers(Request $request)
+    public function removeUser(Request $request)
     {
-        //$user = Auth::user();
+       
 
     }
 }

@@ -210,6 +210,7 @@ class User extends Authenticatable implements JWTSubject
         return $result;
     }
 
+    //to be deleted if no need
     public static function isApproved($username){
         $result = self::where('username', '=', $username)
                         ->select('approved')
@@ -221,6 +222,14 @@ class User extends Authenticatable implements JWTSubject
     public static function ApproveManager($username){
         $result = self::where('username','=',$username)
                         -> update(['approved' => 1]);
+        return $result;
+    }
+
+    public static function getNotAdminUsers(){
+        $result = self::where('role','=','Manager')->where('approved','=',1)
+                        ->orWhere('role','=','Fan')
+                        ->select('username','email','first_name','last_name','role')
+                        ->get();
         return $result;
     }
 
