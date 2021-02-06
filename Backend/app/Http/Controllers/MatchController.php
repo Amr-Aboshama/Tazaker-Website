@@ -68,8 +68,8 @@ class MatchController extends Controller
             'date' => ['required', 'date_format:Y-m-d', 'after:today'],
             'time' => ['required', 'date_format:H:i'],
             'main_referee' => ['required', 'string', 'alpha_dash'],
-            'first_linesman' => ['required', 'string', 'alpha_dash', Rule::notIn($request->main_referee)],
-            'second_linesman' => ['required', 'string', 'alpha_dash', Rule::notIn([$request->main_referee, $request->first_linesman])],
+            'first_linesman' => ['required', 'string', 'alpha_dash'],
+            'second_linesman' => ['required', 'string', 'alpha_dash'],
         ]);
 
         if ($valid->fails()) {
