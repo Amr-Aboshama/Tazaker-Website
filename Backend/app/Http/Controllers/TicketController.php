@@ -30,7 +30,7 @@ class TicketController extends Controller
 
         /*
          * Deprecated
-         * 
+         *
             if(Auth::check())
             {
                 $user = Auth::user();
@@ -51,11 +51,10 @@ class TicketController extends Controller
         ], 200);
     }
 
-    public function reserveTickets(Request $request)
+    public function reserveTicket(Request $request)
     {
         $valid = Validator::make($request->all(), [
-            'match_id' => ['required', 'exists:matches,id'],
-            'seats' => ['required', 'array'],
+            'match_id' => ['required', 'exists:matches,id']
         ]);
 
         if ($valid->fails()) {
@@ -70,46 +69,41 @@ class TicketController extends Controller
         $stadium = Matches::getMatchStadium($request->match_id);
         $stadium_shape = Stadium::getStadiumShape($stadium);
 
+        $valid = Validator::make($request->all(), [
+            'seat_row' => [
+                'required',
+                'integer',
+                'gt:0',
+                'lte:' . $stadium_shape->row_count,
+            ],
+            'seat_column' => [
+                'required',
+                'integer',
+                'gt:0',
+                'lte:' . $stadium_shape->column_count,
+            ],
+        ]);
+
+        if ($valid->fails() || Ticket::isSeatReserved($request->match_id, $request->seat_row, $request->seat_column)) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Invalid or some data missed',
+            ], 422);
+        }
+
         $user = Auth::user();
 
-        $reserved_tickets = [];
-
-        foreach ($request->seats as $seat) {
-            $valid = Validator::make($seat, [
-                'seat_row' => [
-                    'required',
-                    'integer',
-                    'gt:0',
-                    'lte:' . $stadium_shape->row_count,
-                ],
-                'seat_column' => [
-                    'required',
-                    'integer',
-                    'gt:0',
-                    'lte:' . $stadium_shape->column_count,
-                ],
-            ]);
-
-            if (
-                $valid->fails()
-                || Ticket::isSeatReserved($request->match_id, $seat['seat_row'], $seat['seat_column'])
-            )
-                continue;
-
-            $ticket = Ticket::storeTicket([
-                'username' => $user->username,
-                'match_id' => $request->match_id,
-                'seat_row' => $seat['seat_row'],
-                'seat_column' => $seat['seat_column'],
-            ]);
-
-            array_push($reserved_tickets, $ticket);
-        }
+        $ticket = Ticket::storeTicket([
+            'username' => $user->username,
+            'match_id' => $request->match_id,
+            'seat_row' => $request->seat_row,
+            'seat_column' => $request->seat_column,
+        ]);
 
 
         return response()->json([
             'success' => true,
-            'reserved_tickets' => $reserved_tickets,
+            'ticket' => $ticket,
         ], 200);
     }
 
