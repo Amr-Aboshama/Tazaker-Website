@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthenticationController extends Controller
 {
@@ -31,25 +29,25 @@ class AuthenticationController extends Controller
         if (!$token = Auth::attempt($credentials)) {
             return response()->json([
                 'success' => false,
-                'error' => 'Username and password is not matching',
+                'error' => 'Username and password is not matching.',
             ], 402);
         }
 
         $user = Auth::user();
+        if ($user->role == 'Manager' && $user->approved == 0) {
+            Auth::logout();
+            return response()->json([
+                'success' => false,
+                'error' => 'Your account has not been approved as a Manager yet.',
+            ], 402);
+        }
 
-        $response = [
+
+        return response()->json([
             'success' => true,
             'token' => $token,
             'role' => $user->role,
-        ];
-
-        if ($user->role == 'Manager')
-            $response['approved'] = $user->approved;
-
-        return response()->json(
-            $response,
-            200
-        );
+        ], 200);
     }
 
     public function signUp(Request $request)
@@ -101,42 +99,12 @@ class AuthenticationController extends Controller
         return response()->json($response, 200);
     }
 
-    public function changePassword(Request $request)
+    public function signOut()
     {
-        $user = Auth::user();
-
-        $valid = Validator::make($request->all(), [
-            'old_password' => ['Required', 'string', 'min:8'],
-            'new_password' => ['Required', 'string', 'confirmed', 'min:8'],
-        ]);
-
-        if ($valid->fails()) {
-            return response()->json([
-                'success' => false,
-                'error' => 'Invalid or some data missed',
-            ], 422);
-        }
-
-        $password_match = User::checkIfPasswordRight(
-            $user->username,
-            $request->old_password
-        );
-
-        if (!$password_match) {
-            return response()->json([
-                'success' => false,
-                'error' => 'The current password is incorrect',
-            ], 402);
-        }
-
-        $user = User::changeUserPassword(
-            $user->username,
-            $request->new_password
-        );
+        Auth::logout();
 
         return response()->json([
-            'success' => true,
-            'message' => 'Password changed successfully',
+            'success' => 'true',
         ], 200);
     }
 }

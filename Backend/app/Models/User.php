@@ -140,18 +140,6 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * delete specific user from the database.
-     *
-     * @param string $username the username of the user that wanted to be removed
-     *
-     * @return bool [ true or false according t the deletion of the user object ].
-     */
-    public static function deleteUserByUsername($username)
-    {
-        return self::where('username', $username)->delete();
-    }
-
-    /**
      * check if the user exists in the database or not given the username.
      *
      * @param string $username the user we need to check its existance
@@ -213,4 +201,36 @@ class User extends Authenticatable implements JWTSubject
 
         return $result;
     }
+
+    public static function getNonApprovedManagers(){
+        $result = self::where('role','=','Manager')
+                    ->where('approved','=',0)
+                    ->select('username','email','first_name','last_name')
+                    ->get();
+        return $result;
+    }
+
+    //to be deleted if no need
+    public static function isApproved($username){
+        $result = self::where('username', '=', $username)
+                        ->select('approved')
+                        ->first()
+                        ->pluck('approved');
+        return $result;
+    }
+
+    public static function ApproveManager($username){
+        $result = self::where('username','=',$username)
+                        -> update(['approved' => 1]);
+        return $result;
+    }
+
+    public static function getNotAdminUsers(){
+        $result = self::where('role','=','Manager')->where('approved','=',1)
+                        ->orWhere('role','=','Fan')
+                        ->select('username','email','first_name','last_name','role')
+                        ->get();
+        return $result;
+    }
+
 }

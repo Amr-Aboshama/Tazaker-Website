@@ -9,30 +9,49 @@ use Illuminate\Validation\Rule;
 
 class MatchController extends Controller
 {
-    public function viewMatchDetails(Request $request)
-    {
-        $valid = Validator::make($request->all(), [
-            'match_id' => ['required', 'integer', 'exists:matches,id'],
-        ]);
+    /* Deprecated
+     *
+     *
+        public function viewMatchDetails(Request $request)
+        {
+            $valid = Validator::make($request->all(), [
+                'match_id' => ['required', 'integer', 'exists:matches,id'],
+            ]);
 
-        if ($valid->fails()) {
+            if ($valid->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'Invalid or some data missed',
+                ], 422);
+            }
+
+            $match = Matches::getMatchDetails($request->match_id);
+
             return response()->json([
-                'success' => false,
-                'error' => 'Invalid or some data missed',
-            ], 422);
+                'success' => true,
+                'match' => $match,
+            ], 200);
         }
-
-        $match = Matches::getMatchDetails($request->match_id);
-
-        return response()->json([
-            'success' => true,
-            'match' => $match,
-        ], 200);
-    }
+    */
 
     public function viewMatches(Request $request)
     {
-        $matches = Matches::getMatches();
+        if ($request->has('match_id')) {
+            $valid = Validator::make($request->all(), [
+                'match_id' => ['integer', 'exists:matches,id'],
+            ]);
+
+            if ($valid->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'Invalid or some data missed',
+                ], 422);
+            }
+            $matches = Matches::getMatchDetails($request->match_id);
+        } else {
+            $matches = Matches::getMatches();
+        }
+
 
         return response()->json([
             'success' => true,

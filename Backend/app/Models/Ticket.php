@@ -30,6 +30,13 @@ class Ticket extends Model
             ->get();
     }
 
+    public static function getReservedTicketsByMatchIDForManager($match_id)
+    {
+        return self::where('match_id', '=', $match_id)
+            ->select('id', 'username', 'seat_row', 'seat_column')
+            ->get();
+    }
+
     public static function storeTicket($ticket_data)
     {
         return self::create($ticket_data);
@@ -54,5 +61,11 @@ class Ticket extends Model
     {
         return self::where('id', '=', $id)
             ->delete();
+    }
+
+    public static function getUserTickets($username)
+    {
+        return self::where('username', '=', $username)
+            ->get();
     }
 }

@@ -37,15 +37,13 @@ class Matches extends Model
     public static function getMatchDetails($match_id)
     {
         return self::where('id', '=', $match_id)
-            ->get()
-            ->first();
+            ->get();
 
         }
 
     public static function getMatches()
     {
-        return self::select('id', 'home_team', 'away_team', 'date')
-        ->get();
+        return self::all();
     }
 
     public static function getMatchStadium($match_id)
@@ -59,8 +57,7 @@ class Matches extends Model
     public static function getMatchDate($match_id)
     {
         return self::where('id', '=', $match_id)
-            ->select('date')
-            ->pluck('date')
+            ->select('date', 'time')
             ->first();
     }
 }
