@@ -62,14 +62,14 @@ class MatchController extends Controller
     public function createMatch(Request $request)
     {
         $valid = Validator::make($request->all(), [
-            'home_team' => ['required', 'string', 'exists:teams,name'],
-            'away_team' => ['required', 'string', 'exists:teams,name', Rule::notIn($request->home_team)],
+            'home_team' => ['required', 'string', 'min:3'],
+            'away_team' => ['required', 'string', 'min:3', Rule::notIn($request->home_team)],
             'match_venue' => ['required', 'string', 'exists:stadia,name'],
             'date' => ['required', 'date_format:Y-m-d', 'after:today'],
             'time' => ['required', 'date_format:H:i'],
-            'main_referee' => ['required', 'string', 'exists:referees,name'],
-            'first_linesman' => ['required', 'string', 'exists:referees,name', Rule::notIn($request->main_referee)],
-            'second_linesman' => ['required', 'string', 'exists:referees,name', Rule::notIn([$request->main_referee, $request->first_linesman])],
+            'main_referee' => ['required', 'string'],
+            'first_linesman' => ['required', 'string', 'alpha_dash', Rule::notIn($request->main_referee)],
+            'second_linesman' => ['required', 'string', 'alpha_dash', Rule::notIn([$request->main_referee, $request->first_linesman])],
         ]);
 
         if ($valid->fails()) {
