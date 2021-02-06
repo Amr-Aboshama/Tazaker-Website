@@ -22,6 +22,8 @@ use App\Http\Controllers\UsersController;
 
 Route::prefix('auth')->middleware('jwt:api')->group(function () {
     Route::post('/changePassword', [UsersController::class, 'changePassword']);
+    Route::post('/editUserInfo', [UsersController::class, 'editUserInfo']);             #TODO
+    Route::post('/viewUserInfo', [UsersController::class, 'viewUserInfo']);             #TODO
     Route::get('/signOut', [AuthenticationController::class, 'signOut']);
 });
 
@@ -44,6 +46,7 @@ Route::prefix('manager')->middleware('jwt-manager:api')->group(function() {
     Route::post('/addStadium', [StadiumController::class, 'addStadium']);
     Route::get('/viewStadiums', [StadiumController::class, 'viewStadiums']);
     Route::post('/createMatch', [MatchController::class, 'createMatch']);
+    Route::put('/editMatch', [MatchController::class, 'editMatch']);                        #TODO
 });
 
 Route::prefix('fan')->middleware('jwt-fan:api')->group(function() {
