@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatchService } from './match.service';
 import { FormBuilder , FormGroup , Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { stadium } from 'src/app/classes/stadium';
 
 @Component({
   selector: 'app-match',
@@ -15,12 +16,15 @@ export class MatchComponent implements OnInit {
   MatchId: number=parseInt( this.route.snapshot.params['id'] );
   EditMode = false;
 
+  Stadiums: stadium[];
+
 
   public matchForm : FormGroup;
 
   constructor(private fb: FormBuilder,private route: ActivatedRoute,private HttpService: MatchService) {
 
     this.createMatch();
+    this.getAllstadiums();
 
    }
 
@@ -44,11 +48,24 @@ export class MatchComponent implements OnInit {
       })
   }
 
+  getAllstadiums(){
+
+    this.HttpService.getAllStadiums()
+    .subscribe(
+      data => {
+        this.Stadiums = data,
+        (err: any) => console.log(err),
+        console.log(this.Stadiums)
+      });
+
+
+  }
+
   createMatch(){
     this.matchForm = this.fb.group({
       Home_team:['', Validators.required],
       Away_team:['', Validators.required],
-      Match_venue:[''],
+      Match_venue:['' , Validators.required],
       Date:['', Validators.required],
       Time:['', Validators.required],
       Main_referee:[''],
@@ -68,14 +85,14 @@ export class MatchComponent implements OnInit {
 
   editMatch(match: match) {
     this.matchForm.patchValue({
-      Home_team: match.Home_team,
-      Away_team: match.Away_team,
-      Match_venue:match.Match_venue,
-      Date:match.Date,
-      Time:match.Time,
-      Main_referee:match.Main_referee,
-      First_linesman:match.First_linesman,
-      Second_linesman:match.Second_linesman
+      Home_team: match.home_team,
+      Away_team: match.away_team,
+      Match_venue:match.match_venue,
+      Date:match.date,
+      Time:match.time,
+      Main_referee:match.main_referee,
+      First_linesman:match.first_linesman,
+      Second_linesman:match.second_linesman
     });
 
   }

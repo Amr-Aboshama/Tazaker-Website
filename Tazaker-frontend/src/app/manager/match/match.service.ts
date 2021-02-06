@@ -1,3 +1,4 @@
+import { strings } from './../../classes/strings';
 import { match } from './../../classes/match';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -8,6 +9,7 @@ import { catchError, retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class MatchService {
+  host : strings;
   baseURL: string = "http://localhost:3000/";
 
   constructor(private http: HttpClient) { }
@@ -19,6 +21,11 @@ export class MatchService {
     return this.http.post(this.baseURL + 'match', body,{'headers':headers})
   }
 
+  getAllStadiums():Observable<any>{
+    return this.http.get<any>(this.baseURL+"stadium")
+  }
+
+
   getMatchbyid(id):Observable<any>{
     return this.http.get<any>(this.baseURL+"match/"+id)
   }
@@ -29,6 +36,9 @@ export class MatchService {
     console.log(body)
     return this.http.put(this.baseURL + 'match/'+id , body,{'headers':headers})
   }
+
+
+
 
 
 }

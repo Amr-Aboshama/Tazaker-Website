@@ -1,14 +1,17 @@
 export class match{
 
-  Home_team: string;
-  Away_team: string;
-  Match_venue: string;
-  Date: Date;
-  Time: number;
-  Main_referee: string;
-  First_linesman: string;
-  Second_linesman: string;
+  home_team: string;
+  away_team: string;
+  match_venue: string;
+  date: Date;
+  time: number;
+  main_referee: string;
+  first_linesman: string;
+  second_linesman: string;
   id: number;
+
+
+  //will delete later
   Stadium_id: number;
 
 

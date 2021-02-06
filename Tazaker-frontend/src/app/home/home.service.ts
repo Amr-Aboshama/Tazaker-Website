@@ -14,8 +14,7 @@ export class HomeService {
   constructor(private http: HttpClient) { }
 
   getmatches():Observable<any>{
-    return this.http.get<any>(this.baseURL+'match')
-  ;}
+    return this.http.get<any>("http://551aed329409.ngrok.io/"+'api/unauth/viewMatches');}
 
   //------------ for admins ------------------------//
   getApprovedusers():Observable<any>{

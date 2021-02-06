@@ -4,15 +4,21 @@
     <div class="flex content-center items-center justify-center h-full">
     <div class="w-full md:px-4 md:m-8">
 
-            <ng-container class="m-4" *ngFor="let seat of seats; let i = index">
+            <ng-container class="m-4" *ngFor="let seat of StadiumSeats; let i = index">
+
+
               <a class="py-2 md:m-4">
-                <button id="buttonStyle" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                <button id="buttonStyle" class="hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                [ngStyle]="{'background-color': seat.booked? '#ec1f1f' : '#95e692'}"
+                [disabled]="seat.booked"
+                (click)="saveClickedSeat(seat)"
                 >
-                 {{i}}
+                 {{i+1}}
                 </button>
               </a>
-              <br *ngIf="(i+1)%Stadium.length == 0">
-              <br *ngIf="(i+1)%Stadium.length == 0">
+              <br *ngIf="(i+1)%Stadium.column_count == 0">
+              <br *ngIf="(i+1)%Stadium.column_count == 0">
+
           </ng-container>
 
     </div>
@@ -21,3 +27,85 @@
 
   </div>
 </div>
+
+
+
+<div *ngIf="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+
+  <div class="relative w-auto my-6 mx-auto max-w-3xl">
+
+    <!--content-->
+    <div  class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+      <form [formGroup]="this.ModalForm"   (ngSubmit)="ReserveTicket()">
+      <!--header-->
+
+      <div class="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
+        <h2 class="text-3xl font-semibold">
+          Book Ticket
+        </h2>
+        <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" (click)="toggleModal()">
+          <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+            ×
+          </span>
+        </button>
+      </div>
+      <div class="relative p-6 flex-auto">
+        Credit card number :
+        <!--  validations -->
+        <label class="text-red-500" *ngIf="ModalForm.get('Credit_number').hasError('required') && ModalForm.get('Credit_number').touched ">
+          Credit card number must be entered
+         </label>
+         <label class="text-red-500" *ngIf="ModalForm.get('Credit_number').hasError('minLength') && ModalForm.get('Credit_number').touched ">
+          Credit card number has minimum 8 numbers
+         </label>
+
+        <input
+        formControlName="Credit_number"
+          type="email"
+          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+          placeholder="Please enter credit card number"
+        />
+        <br>
+        <br>
+        PIN number :
+
+         <!--  validations -->
+         <label class="text-red-500" *ngIf="ModalForm.get('PIN_number').hasError('required') && ModalForm.get('PIN_number').touched ">
+          PIN number must be entered
+         </label>
+         <label class="text-red-500" *ngIf="ModalForm.get('PIN_number').hasError('minLength') && ModalForm.get('PIN_number').touched ">
+         PIN number has minimum 4 numbers
+         </label>
+
+
+        <input
+          formControlName="PIN_number"
+          type="email"
+          class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+          placeholder="Please enter your PIN"
+        />
+
+      </div>
+      <!--footer-->
+      <div class="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
+        <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" (click)="toggleModal()">
+          Close
+        </button>
+        <button class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+        type="submit"
+        style="transition: all .15s ease"
+        [disabled]="ModalForm.invalid"
+        [ngStyle]="{'background-color': ModalForm.invalid? '#ec1f1f' : '#95e692'}"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+    </div>
+  </div>
+
+</div>
+<!--
+<div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+-->
+

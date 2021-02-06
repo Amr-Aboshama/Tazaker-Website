@@ -12,7 +12,9 @@
         <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
 
 
+
           <form  [formGroup]="this.matchForm" >
+
 
             <div class="relative w-full mb-3">
               <label
@@ -20,6 +22,9 @@
                 htmlFor="hometeam"
               >
                 Home Team:
+              </label>
+              <label class="text-red-500" *ngIf="matchForm.get('Home_team').hasError('required') && matchForm.get('Home_team').touched ">
+               you must enter a home team
               </label>
               <input
                 formControlName="Home_team"
@@ -33,11 +38,14 @@
 
             <div class="relative w-full mb-3">
               <label
-                class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                class="block uppercase text-gray-700 text-xs font-bold md:mb-2"
                 htmlFor="awayteam"
               >
                 Away Team:
               </label>
+              <label class="text-red-500" *ngIf="matchForm.get('Away_team').hasError('required') && matchForm.get('Away_team').touched ">
+                you must enter an away team
+               </label>
               <input
                 formControlName="Away_team"
                 type="email"
@@ -54,16 +62,22 @@
                 class="block uppercase text-gray-700 text-xs font-bold mb-2"
                 htmlFor="match_venue"
               >
-               Match Venu:
+               Match Venue:
               </label>
-              <input
-                formControlName="Match_venue"
-                type="email"
-                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                placeholder="away team"
-                name="Match_venue"
+              <label class="text-red-500" *ngIf="matchForm.get('Match_venue').hasError('required') && matchForm.get('Match_venue').touched ">
+                you must enter the match venue
+               </label>
 
-              />
+              <select
+              formControlName="Match_venue"
+              class="w-full border-2 bg-white border-gray-200 rounded px-3 py-3 outline-none"
+              >
+                <option class="py-1" disabled selected>-- Choose stadium --</option>
+                <option class="py-1" *ngFor="let stadium of Stadiums" > {{stadium.name}}</option>
+              </select>
+
+
+
             </div>
             <div class="h-20 flex flex-wrap content-start ">
               <div class="md:pr-8">
@@ -106,9 +120,9 @@
 
 
 
-            <div class="relative w-full mb-3">
+            <div class="relative w-full md:mb-3">
               <label
-                class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                class="block uppercase text-gray-700 text-xs font-bold md:mb-2"
                 htmlFor="mainreferee"
               >
                 Main referee:
@@ -116,7 +130,7 @@
               <input
                 formControlName="Main_referee"
                 type="email"
-                class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                class="md:px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                 placeholder="main referee"
                 name="Main_referee"
 
@@ -147,6 +161,7 @@
               >
               Second linesman:
               </label>
+
               <input
                 formControlName="Second_linesman"
                 type="email"
@@ -159,6 +174,8 @@
 
             <div class="text-center mt-12">
               <button
+              [disabled]="matchForm.invalid"
+              [ngStyle]="{'background-color': matchForm.invalid? '#ec1f1f' : '#95e692'}"
                 class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                 type="button"  (click)="ChooseMode()">
 

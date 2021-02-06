@@ -1,8 +1,9 @@
 export class seat{
 
   id: number;
-  Matchid: number;
-  Stadiumid: number;
-  row: number;
-  col: number;
+  seat_column: number;
+  seat_row: number;
+
+  booked: boolean;
+
 }

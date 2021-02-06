@@ -13,13 +13,17 @@ import { User } from '../classes/User';
 })
 export class HomeComponent implements OnInit {
 
+
+  items: any;
   Matches: match[];
   Users: User[];
   id: number=parseInt( this.route.snapshot.params['id'] );
 
 
 
-  constructor(private HttpService: HomeService ,private route: ActivatedRoute , private router: Router) { }
+  constructor(private HttpService: HomeService ,private route: ActivatedRoute , private router: Router) {
+    this.items = this.Matches;
+   }
 
   ngOnInit(): void {
 
@@ -27,9 +31,14 @@ export class HomeComponent implements OnInit {
 
     this.HttpService.getmatches().subscribe(
       data => {
-        this.Matches = data,
+        //do not forget to do this everywhere
+        this.items = data.matches,
+        this.Matches=this.items,
+
         (err: any) => console.log(err),
+        console.log(this.items),
         console.log(this.Matches)
+
       });
     }
     else
