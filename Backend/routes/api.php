@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\MatchController;
 use App\Http\Controllers\StadiumController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ use App\Http\Controllers\TicketController;
 */
 
 Route::prefix('auth')->middleware('jwt:api')->group(function () {
-    Route::post('/changePassword', [AuthenticationController::class, 'changePassword']);
+    Route::post('/changePassword', [UsersController::class, 'changePassword']);
     Route::get('/signOut', [AuthenticationController::class, 'signOut']);
 });
 
