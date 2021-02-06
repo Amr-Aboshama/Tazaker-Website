@@ -67,7 +67,7 @@ class MatchController extends Controller
             'match_venue' => ['required', 'string', 'exists:stadia,name'],
             'date' => ['required', 'date_format:Y-m-d', 'after:today'],
             'time' => ['required', 'date_format:H:i'],
-            'main_referee' => ['required', 'string'],
+            'main_referee' => ['required', 'string', 'alpha_dash'],
             'first_linesman' => ['required', 'string', 'alpha_dash', Rule::notIn($request->main_referee)],
             'second_linesman' => ['required', 'string', 'alpha_dash', Rule::notIn([$request->main_referee, $request->first_linesman])],
         ]);
