@@ -22,8 +22,8 @@ use App\Http\Controllers\UsersController;
 
 Route::prefix('auth')->middleware('jwt:api')->group(function () {
     Route::post('/changePassword', [UsersController::class, 'changePassword']);
-    Route::post('/editUserInfo', [UsersController::class, 'editUserInfo']);             #TODO
-    Route::post('/viewUserInfo', [UsersController::class, 'viewUserInfo']);             #TODO
+    Route::put('/editUserInfo', [UsersController::class, 'editUserInfo']);             #TODO
+    Route::get('/viewUserInfo', [UsersController::class, 'viewUserInfo']);             #TODO
     Route::get('/signOut', [AuthenticationController::class, 'signOut']);
 });
 

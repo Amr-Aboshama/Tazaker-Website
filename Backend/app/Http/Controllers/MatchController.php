@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Matches;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -94,5 +95,45 @@ class MatchController extends Controller
             'success' => true,
             'match_id' => $match->id,
         ]);
+    }
+
+    public function editMatch(Request $request){
+        $valid = Validator::make($request->all(), [
+            'match_id' => ['required','integer', 'exists:matches,id'],
+            'home_team' => ['required', 'string', 'min:3'],
+            'away_team' => ['required', 'string', 'min:3', Rule::notIn($request->home_team)],
+            'match_venue' => ['required', 'string', 'exists:stadia,name'],
+            'date' => ['required', 'date_format:Y-m-d', 'after:today'],
+            'time' => ['required', 'date_format:H:i'],
+            'main_referee' => ['required', 'string', 'alpha_dash'],
+            'first_linesman' => ['required', 'string', 'alpha_dash'],
+            'second_linesman' => ['required', 'string', 'alpha_dash'],
+        ]);
+
+        if ($valid->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Invalid or some data missed',
+            ], 422);
+        }
+
+        try{
+            $update = Matches::updateMatch($request->match_id,$request->home_team,$request->away_team,
+                                            $request->match_venue,$request->date,$request->time,
+                                            $request->main_referee,$request->first_linesman,$request->second_linesman);
+            return response()->json([
+                'success' => true,
+                'message' => 'match was edited successfully.'
+
+            ],200);
+
+        }catch(\Exception $e){
+            return response()->json([
+                'success' => false,
+                'error' => 'Faild to edit match!'
+            ],409);
+        }
+
+
     }
 }
