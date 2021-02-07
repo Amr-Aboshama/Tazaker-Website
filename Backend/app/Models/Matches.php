@@ -60,4 +60,12 @@ class Matches extends Model
             ->select('date', 'time')
             ->first();
     }
+
+    public static function updateMatch($match_id,$home__team,$away__team,$match__venue,$match__date,
+                                        $match__time,$main__referee,$first__linesman,$second__linesman){
+        return self::where('id','=',$match_id)
+                    ->update(['home_team'=> $home__team,'away_team' => $away__team ,'match_venue'=> $match__venue ,
+                    'date'=> $match__date, 'time'=> $match__time, 'main_referee'=> $main__referee,
+                    'first_linesman'=> $first__linesman, 'second_linesman'=> $second__linesman ]);
+    }
 }

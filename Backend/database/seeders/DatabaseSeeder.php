@@ -13,10 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        RefereeSeeder::run();
         UserSeeder::run();
         StadiumSeeder::run();
-        TeamSeeder::run();
         MatchSeeder::run();
         TicketSeeder::run();
     }

@@ -85,18 +85,11 @@ class AuthenticationController extends Controller
             'role' => $request->role,
             'address' => $request->address
         ]);
-        $token = Auth::login($user);
 
-        $response = [
+        return response()->json([
             'success' => true,
-            'token' => $token,
-            'role' => $user->role,
-        ];
-
-        if ($user->role == 'Manager')
-            $response['approved'] = $user->approved;
-
-        return response()->json($response, 200);
+            'message' => 'The account created successfully!',
+        ], 200);
     }
 
     public function signOut()

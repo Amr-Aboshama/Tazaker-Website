@@ -24,12 +24,7 @@ class CreateMatchesTable extends Migration
             $table->string('first_linesman');
             $table->string('second_linesman');
 
-            $table->foreign('home_team')->references('name')->on('teams')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('away_team')->references('name')->on('teams')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('match_venue')->references('name')->on('stadia')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('main_referee')->references('name')->on('referees')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('first_linesman')->references('name')->on('referees')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('second_linesman')->references('name')->on('referees')->onUpdate('cascade')->onDelete('cascade');
 
         });
 

@@ -210,15 +210,6 @@ class User extends Authenticatable implements JWTSubject
         return $result;
     }
 
-    //to be deleted if no need
-    public static function isApproved($username){
-        $result = self::where('username', '=', $username)
-                        ->select('approved')
-                        ->first()
-                        ->pluck('approved');
-        return $result;
-    }
-
     public static function ApproveManager($username){
         $result = self::where('username','=',$username)
                         -> update(['approved' => 1]);
@@ -230,6 +221,15 @@ class User extends Authenticatable implements JWTSubject
                         ->orWhere('role','=','Fan')
                         ->select('username','email','first_name','last_name','role')
                         ->get();
+        return $result;
+    }
+
+    public static function updateUserInfo($username,$first__name,$last__name,$user__birthdate,$user__gender,
+                                        $user__city,$user__adress){
+        $result = self::where('username','=',$username)
+                        ->update(['first_name' => $first__name,'last_name' => $last__name,
+                        'birthdate' => $user__birthdate,'gender' => $user__gender,'city' => $user__city,
+                        'address' => $user__adress ]);
         return $result;
     }
 
