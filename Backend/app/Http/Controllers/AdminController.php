@@ -36,7 +36,6 @@ class AdminController extends Controller
             ], 422);
         }
 
-
         $user = User::getUserWholeRecord($request->username);
 
         if ($user->role != 'Manager' || $user->approved) {
@@ -46,20 +45,28 @@ class AdminController extends Controller
             ], 422);
         }
 
-        $msg = '';
-        if ($request->approve) {
-            User::ApproveManager($user->username);
-            $msg = 'approved';
-        } else {
-            User::deleteAccount($user->username);
-            $msg = 'deleted';
+        try {
+            $msg = '';
+            if ($request->approve) {
+                User::ApproveManager($user->username);
+                $msg = 'approved';
+            } else {
+                User::deleteAccount($user->username);
+                $msg = 'deleted';
+            }
+            return response()->json([
+                'success' => true,
+                'message' => 'Manager is ' . $msg . ' successfully.',
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Failed to approve/disapprove manager!',
+            ], 409);
         }
 
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Manager is ' . $msg . ' successfully.',
-        ], 200);
+
     }
 
     public function showAllUsers(Request $request)
@@ -88,20 +95,28 @@ class AdminController extends Controller
             ], 422);
         }
 
-        $deleted = User::deleteAccount($request->username);
 
-        if($deleted){
-            return response()->json([
-                'success' => true,
-                'message' => 'User is removed successfully.'
-            ],200);
-        }
-        else{
+
+        try {
+            $deleted = User::deleteAccount($request->username);
+            if($deleted){
+                return response()->json([
+                    'success' => true,
+                    'message' => 'User is removed successfully.'
+                ],200);
+            }
+            else{
+                return response()->json([
+                    'success' => false,
+                    'error' => 'Failed to remove user!'
+                ],409);
+            }
+
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'failed to remove user.'
-                //check for 403 error code what it should be?
-            ],403);
+                'error' => 'Failed to remove user!'
+            ],409);
         }
 
     }
