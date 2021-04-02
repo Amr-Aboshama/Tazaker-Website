@@ -94,8 +94,8 @@ toggleModal(){
 
 Modal(){
   this.ModalForm = this.fb.group({
-    Credit_number:['', [Validators.minLength(8), Validators.required]],
-    PIN_number:['', [Validators.minLength(4), Validators.required]]
+    Credit_number:['', [Validators.minLength(8),Validators.maxLength(8), Validators.required]],
+    PIN_number:['', [Validators.minLength(4),Validators.maxLength(4), Validators.required]]
   });
 }
 

@@ -31,23 +31,27 @@
                     <p class="text-sm text-gray-500 mt-4"> <span class="whitespace-no-wrap">Second_linesman: {{ Match.second_linesman }}</span></p>
                     <br>
                     <!-- for different users -->
-                    <a [routerLink]="['/editmatch',Match.id]" class="py-8" href="" *ngIf=" id == 1">
+                    <a [routerLink]="['/seats',Match.id]"  class="py-8"  *ngIf=" id != 1 && id != 2">
+                      <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                      >
+                        Seats
+                      </button>
+                    </a>
+
+                    <a [routerLink]="['/editmatch',Match.id]" class="py-8" *ngIf=" id == 1">
                       <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
                       >
                         Edit
                       </button>
                     </a>
-
-                    <a [routerLink]="['/seats',Match.id]"  class="py-8 md:ml-8" href="" *ngIf=" id == 1">
+                    <a [routerLink]="['/seats',Match.id]"  class="py-8 md:ml-8"  *ngIf=" id == 1">
                       <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-
                       >
                         Seats
                       </button>
-
                     </a>
 
-                    <a class="py-8" [routerLink]="['/seats',id,Match.Stadium_id]" *ngIf=" id == 2">
+                    <a class="py-8" [routerLink]="['/seats',Match.id]" *ngIf=" id == 2">
                       <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" >
                         Reserve
                       </button>

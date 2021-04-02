@@ -136,6 +136,24 @@
       "seat_row": 3,
       "booked": false,
       "id": 22
+    },
+    {
+      "seat_column": 1,
+      "seat_row": 2,
+      "booked": false,
+      "id": 23
+    },
+    {
+      "seat_column": 1,
+      "seat_row": 5,
+      "booked": false,
+      "id": 24
+    },
+    {
+      "match_id": 1,
+      "seat_row": 5,
+      "seat_column": 1,
+      "id": 25
     }
   ],
   "user": [

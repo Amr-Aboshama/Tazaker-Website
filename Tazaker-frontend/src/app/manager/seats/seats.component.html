@@ -32,7 +32,7 @@
 
 <div *ngIf="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
 
-  <div class="relative w-auto my-6 mx-auto max-w-3xl">
+  <div class="relative w-auto md:my-6 mx-auto max-w-3xl">
 
     <!--content-->
     <div  class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -40,7 +40,7 @@
       <!--header-->
 
       <div class="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-        <h2 class="text-3xl font-semibold">
+        <h2 class="md:mx-14 text-3xl font-semibold">
           Book Ticket
         </h2>
         <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" (click)="toggleModal()">
@@ -50,14 +50,22 @@
         </button>
       </div>
       <div class="relative p-6 flex-auto">
-        Credit card number :
+        <label >
+          Credit card number :
+        </label>
+
         <!--  validations -->
+        <div class="">
         <label class="text-red-500" *ngIf="ModalForm.get('Credit_number').hasError('required') && ModalForm.get('Credit_number').touched ">
           Credit card number must be entered
          </label>
-         <label class="text-red-500" *ngIf="ModalForm.get('Credit_number').hasError('minLength') && ModalForm.get('Credit_number').touched ">
-          Credit card number has minimum 8 numbers
+         <label class="text-red-500"
+         *ngIf="(ModalForm.get('Credit_number').hasError('minlength') && ModalForm.get('Credit_number').touched) ||
+                (ModalForm.get('Credit_number').hasError('maxlength') && ModalForm.get('Credit_number').touched)">
+
+          Credit card number must be  8 numbers
          </label>
+        </div>
 
         <input
         formControlName="Credit_number"
@@ -67,15 +75,23 @@
         />
         <br>
         <br>
-        PIN number :
+        <label >
+          PIN number :
+        </label>
+
 
          <!--  validations -->
-         <label class="text-red-500" *ngIf="ModalForm.get('PIN_number').hasError('required') && ModalForm.get('PIN_number').touched ">
+         <div class="">
+         <label class="text-red-500"
+         *ngIf="ModalForm.get('PIN_number').hasError('required') && ModalForm.get('PIN_number').touched ">
           PIN number must be entered
          </label>
-         <label class="text-red-500" *ngIf="ModalForm.get('PIN_number').hasError('minLength') && ModalForm.get('PIN_number').touched ">
-         PIN number has minimum 4 numbers
+         <label class="text-red-500"
+          *ngIf="(ModalForm.get('PIN_number').hasError('minlength') && ModalForm.get('PIN_number').touched) ||
+                 (ModalForm.get('PIN_number').hasError('maxlength') && ModalForm.get('PIN_number').touched) ">
+         PIN number has to be  4 numbers
          </label>
+        </div>
 
 
         <input

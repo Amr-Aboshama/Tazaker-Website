@@ -8,34 +8,39 @@ import { seat } from 'src/app/classes/seat';
   providedIn: 'root'
 })
 export class SeatsService {
-  host: MyStrings;
-  baseURL: string = "http://localhost:3000/";
+  host = new MyStrings();
+ // baseURL: string = "http://localhost:3000/";
+ // serverURL: string ="http://f038e07fd417.ngrok.io/";
 
   constructor(private http: HttpClient) { }
 
 
   getStadiumbyid(id:number):Observable<any>{
-    return this.http.get<any>(this.baseURL+"stadium/"+id)
+    return this.http.get<any>(this.host.localhost+"stadium/"+id)
   }
 
   getSeatsforStadiumbyid(id: number):Observable<any>{
-    return this.http.get<any>(this.baseURL+"seats/"+id)
+    return this.http.get<any>(this.host.localhost+"seats/"+id)
   }
 
   getSeatsOfStadium(id : number):Observable<any>{
 
-    return this.http.get<any>("http://551aed329409.ngrok.io/"+'api/unauth/viewSeatsStatus'+'?match_id='+id)
+    return this.http.get<any>(this.host.serverhost+'api/unauth/viewSeatsStatus'+'?match_id='+id)
 
   }
 
   reserveSeat(matchId : number , seat : seat): Observable<any> {
-    const headers = { 'content-type': 'application/json',
-                      'match_id': matchId.toString()
+    const headers = { 'content-type': 'application/json'}
+    const bodyx =
+    {
+            "match_id": matchId,
+            "seat_row": seat.seat_row,
+            "seat_column": seat.seat_column
     }
-    const body=JSON.stringify(seat);
+    //const body=JSON.stringify(seat);
     console.log(headers);
-    console.log(body);
-    return this.http.post(this.baseURL + 'match', body,{'headers':headers})
+    console.log(bodyx);
+    return this.http.post(this.host.serverhost + 'match', bodyx,{'headers':headers})
   }
 
 }

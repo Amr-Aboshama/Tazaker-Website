@@ -1,10 +1,12 @@
+import { Time } from "@angular/common";
+
 export class match{
 
   home_team: string;
   away_team: string;
   match_venue: string;
   date: Date;
-  time: number;
+  time: Time;
   main_referee: string;
   first_linesman: string;
   second_linesman: string;

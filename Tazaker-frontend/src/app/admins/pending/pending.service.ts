@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
 })
 export class PendingService {
 
-  host: MyStrings;
-  baseURL: string = "http://localhost:3000/";
+  host = new MyStrings();
+ // baseURL: string = "http://localhost:3000/";
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +19,7 @@ export class PendingService {
     const headers = { 'content-type': 'application/json'}
     const body=JSON.stringify(pending);
     console.log(body)
-    return this.http.put(this.baseURL + 'match/'+pendingManager , body,{'headers':headers})
+    return this.http.put(this.host.localhost + 'match/'+pendingManager , body,{'headers':headers})
   }
 
   getPendingUsers():Observable<any>{
@@ -28,7 +28,7 @@ export class PendingService {
 
   removeRequestbyid(id:number):Observable<any>
   {
-    return this.http.delete(this.baseURL + 'pending/'+id);
+    return this.http.delete(this.host.localhost + 'pending/'+id);
   }
 
 }

@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
         this.Matches=this.items,
 
         (err: any) => console.log(err),
+        console.log(this.id)
         console.log(this.items),
         console.log(this.Matches)
 
