@@ -15,7 +15,7 @@ const routes: Routes = [
   { path:'editmatch/:id', component: MatchComponent },
   {path:'pending', component: PendingComponent},
   {path:'reservataions', component: ReservationsComponent},
-  {path:'seats/:id/:stadiumid' , component: SeatsComponent},
+  {path:'seats/:id' , component: SeatsComponent},
   {path:'stadium' , component: StadiumComponent},
   {path: 'home/:id' , component: HomeComponent },
   {path: 'home' , component: HomeComponent },

@@ -11,6 +11,7 @@ city: string;
 Address: string;
 email: string;
 id : number;
+role: string;
 
-seats:seat;
+
 }

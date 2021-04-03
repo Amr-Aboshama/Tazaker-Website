@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PendingComponent implements OnInit {
 
   PendingUsers: User[];
+  // PendingUsers: User[];
 
   constructor(private HttpService: PendingService,private route: ActivatedRoute , private router: Router) { }
 

@@ -1,7 +1,8 @@
 export class stadium{
 
   name: string;
-  width: number;
-  length: number;
+  row_count: number;
+  column_count: number;
+
   size : number;
 }
