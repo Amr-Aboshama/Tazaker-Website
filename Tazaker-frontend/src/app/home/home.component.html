@@ -91,7 +91,7 @@
                   <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                     <h4 class="text-3xl text-xl">
 
-                        {{user.First_name }} {{ user.last_name }}
+                        {{user.first_name }} {{ user.last_name }}
                     </h4>
                     <span class="font-semibold text-xl text-gray-500">
 
@@ -100,31 +100,24 @@
 
                 </div>
                 <p class="text-sm text-gray-500 mt-4">
-                  <span class="whitespace-no-wrap"> Username:  {{ user.User_name }}</span>
+                  <span class="whitespace-no-wrap"> Username:  {{ user.username }}</span>
                 </p>
                 <p class="text-sm text-gray-500 mt-4">
                   <span class="whitespace-no-wrap"> Email:  {{ user.email }}</span>
                 </p>
-                <p class="text-sm text-gray-500 mt-4">
-                  <span class="whitespace-no-wrap"> BirthDate:  {{ user.Birth_date }}</span>
-                </p>
-                <p class="text-sm text-gray-500 mt-4">
-                  <span class="whitespace-no-wrap"> Gender:  {{ user.Gender }}</span>
-                </p>
-                <p class="text-sm text-gray-500 mt-4">
-                  <span class="whitespace-no-wrap"> City:  {{ user.city }}</span>
-                </p>
+              <!--
                 <p class="text-sm text-gray-500 mt-4" *ngIf="user.Address != null">
                   <span class="whitespace-no-wrap"> Address:  {{ user.Address }}</span>
                 </p>
                 <p class="text-sm text-gray-500 mt-4">
                   <span class="whitespace-no-wrap"> Role: <b> {{ user.role }} </b> </span>
                 </p>
+                -->
 
 
                 <br>
                   <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-                  (click)="removeUser(user.id)"
+                  (click)="removeUser(user.username)"
                   >
                     Remove
                   </button>

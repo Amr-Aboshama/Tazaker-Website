@@ -23,7 +23,8 @@ export class PendingService {
   }
 
   getPendingUsers():Observable<any>{
-    return this.http.get<any>(this.host.localhost+'pending');
+
+    return this.http.get<any>(this.host.serverhost+'api/admin/showNonApprovedManagers');
   }
 
   removeRequestbyid(id:number):Observable<any>

@@ -17,12 +17,13 @@ export class HomeComponent implements OnInit {
   items: any;
   Matches: match[];
   Users: User[];
-  id: number=parseInt( this.route.snapshot.params['id'] );
-
+  //id: number=parseInt( this.route.snapshot.params['id'] );
+  id: number;
 
 
   constructor(private HttpService: HomeService ,private route: ActivatedRoute , private router: Router) {
     this.items = this.Matches;
+    this.id = parseInt(localStorage.getItem('role'), 10);
    }
 
   ngOnInit(): void {
@@ -53,18 +54,23 @@ export class HomeComponent implements OnInit {
 
 
 //for admin
-removeUser(Userid: number){
+removeUser(Userid: string){
+  console.log(Userid);
   this.HttpService.removeUserbyid(Userid).subscribe(
     data => {
       (err: any) => console.log(err)
+
       this.RefreshApprovedUsers();
+
+
     });
+
 }
 
 RefreshApprovedUsers(){
   this.HttpService.getApprovedusers().subscribe(
     data => {
-      this.Users = data,
+      this.Users = data.users,
       (err: any) => console.log(err),
       console.log(this.Users)
     });

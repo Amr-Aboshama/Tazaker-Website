@@ -15,7 +15,6 @@ import { SeatsComponent } from './manager/seats/seats.component';
 import { PendingComponent } from './admins/pending/pending.component';
 import { ReservationsComponent } from './fan/reservations/reservations.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
@@ -42,7 +41,6 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatDatepickerModule, 
     MatNativeDateModule,
     MatFormFieldModule
   ],

@@ -11,10 +11,10 @@ import { AccountService } from '../account.service';
 })
 export class LoginComponent implements OnInit {
   angForm: FormGroup;
-  constructor(private fb: FormBuilder, private dataService: AccountService, private router:Router) { 
+  constructor(private fb: FormBuilder, private dataService: AccountService, private router:Router) {
     this.angForm = this.fb.group({
-      email: ['', [Validators.required,Validators.minLength(1), Validators.email]],
-      password: ['', Validators.required]
+      username: ['', [Validators.required,Validators.minLength(4)]],
+      password: ['', [Validators.required , Validators.minLength(8)]]
       });
   }
 
@@ -23,17 +23,18 @@ export class LoginComponent implements OnInit {
 
   login(angForm1)
   {
-  this.dataService.userlogin(angForm1.value.email,angForm1.value.password)
+  this.dataService.userlogin(angForm1.value.username,angForm1.value.password)
   .pipe(first())
   .subscribe(
   data => {
-  const redirect = this.dataService.redirectUrl ? this.dataService.redirectUrl : '/api/unauth/signIn';
-  this.router.navigate([redirect]);
+  //const redirect = this.dataService.redirectUrl ? this.dataService.redirectUrl : '/api/unauth/signIn';
+  this.router.navigate(['/home']);
   },
   error => {
+  console.log(error)
   alert("User name or password is incorrect")
   });
   }
-  get email() { return this.angForm.get('email'); }
+  get username() { return this.angForm.get('username'); }
   get password() { return this.angForm.get('password'); }
 }

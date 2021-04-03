@@ -22,14 +22,22 @@ export class HomeService {
   getmatches():Observable<any>{
     return this.http.get<any>(this.host.serverhost+'api/unauth/viewMatches');}
 
+
   //------------ for admins ------------------------//
   getApprovedusers():Observable<any>{
-    return this.http.get<any>(this.host.localhost+'user');
+
+    const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer '+localStorage.getItem('token')}
+    return this.http.get<any>(this.host.serverhost+'api/admin/showAllUsers',{'headers':headers});
   }
 
-  removeUserbyid(id:number):Observable<any>
+  removeUserbyid(username:string):Observable<any>
   {
-    return this.http.delete(this.host.localhost + 'user/'+id);
+    const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer '+localStorage.getItem('token')}
+    const body= {username: username}
+    //console.log(localStorage.getItem('token'))
+    return this.http.delete<any>(this.host.serverhost + 'api/admin/removeUser',{'headers':headers, 'body': body});
   }
 
 }

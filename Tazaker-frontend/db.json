@@ -156,19 +156,7 @@
       "id": 25
     }
   ],
-  "user": [
-    {
-      "id": 1,
-      "email": "maimostafa@gmail.com",
-      "password": 123,
-      "First_name": "Eren",
-      "last_name": "Yeager",
-      "User_name": 2,
-      "Gender": "male",
-      "city": "maria wall",
-      "Birth_date": "1/1/1500"
-    }
-  ],
+  "user": [],
   "stadium": [
     {
       "name": "cairo",
