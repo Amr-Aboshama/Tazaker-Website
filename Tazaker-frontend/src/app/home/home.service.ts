@@ -7,6 +7,7 @@ import { catchError, retry } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+
 export class HomeService {
 
   baseURL: string = "http://localhost:3000/";

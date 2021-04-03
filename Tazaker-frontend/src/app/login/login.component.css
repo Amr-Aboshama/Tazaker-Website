@@ -5,4 +5,16 @@
     /* Center and scale the image nicely */
     background-position: center;
     background-size: cover;
+    background-attachment: fixed;
   }
+  
+:focus {
+  border-color: rgb(16, 187, 67);
+} 
+button:hover {
+  background-color: rgb(16, 187, 67);
+  color: white;
+}
+a:hover{
+  color: rgb(16, 187, 67);
+}

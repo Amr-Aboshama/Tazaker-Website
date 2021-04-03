@@ -6,8 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+  ngOnInit(): void { }
   title = 'EPL';
 }
