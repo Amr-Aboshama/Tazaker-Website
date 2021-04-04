@@ -21,13 +21,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(angForm1)
+  login(angForm)
   {
-  this.dataService.userlogin(angForm1.value.username,angForm1.value.password)
+  this.dataService.userlogin(angForm.value.username,angForm.value.password)
   .pipe(first())
   .subscribe(
   data => {
-  //const redirect = this.dataService.redirectUrl ? this.dataService.redirectUrl : '/api/unauth/signIn';
   this.router.navigate(['/home']);
   },
   error => {
