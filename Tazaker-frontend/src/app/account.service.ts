@@ -62,21 +62,7 @@ public userregistration(username, pwd, confPwd, fname, lname, bdate, gen, city, 
     city: city
   }
 
-return this.httpClient.post<any>(this.host.serverhost + 'api/unauth/signUp', body)
-.pipe(map(Users => {
-  this.setToken(Users.token);
-  
-  var role = 2;
-  if ( Users.role == 'Admin') {
-    role = 0;
-  }
-  else if (Users.role == 'Manager'){
-    role = 1;
-  }
-  localStorage.setItem('role', role.toString());
-  this.getLoggedInName.emit(true);
-  return Users;
-}));
+return this.httpClient.post<any>(this.host.serverhost + 'api/unauth/signUp', body);
 }
 
 //token
