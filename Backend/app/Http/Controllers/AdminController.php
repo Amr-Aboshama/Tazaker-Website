@@ -25,7 +25,7 @@ class AdminController extends Controller
     {
 
         $valid = Validator::make($request->all(), [
-            'username' => ['required', 'string', 'exists:users'],
+            'username' => ['required', 'alpha_num', 'exists:users'],
             'approve' => ['required', 'boolean']
         ]);
 
@@ -85,7 +85,7 @@ class AdminController extends Controller
     public function removeUser(Request $request)
     {
         $valid = Validator::make($request->all(), [
-            'username' => ['required', 'string', 'exists:users']
+            'username' => ['required', 'alpha_num', 'exists:users']
         ]);
 
         if ($valid->fails()) {
