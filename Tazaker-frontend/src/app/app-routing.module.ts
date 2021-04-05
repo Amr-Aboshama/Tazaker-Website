@@ -8,6 +8,7 @@ import { MatchComponent } from './manager/match/match.component';
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { StadiumComponent } from './manager/stadium/stadium.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
 
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'home' , component: HomeComponent },
   {path:'signup' , component : SignupComponent },
   {path: 'login' , component: LoginComponent },
+  {path: 'profile', component: ProfileComponent},
   { path: "**", redirectTo: "home", pathMatch: "full" }
 ];
 

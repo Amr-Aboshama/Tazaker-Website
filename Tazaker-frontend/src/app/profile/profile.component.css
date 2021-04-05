@@ -1,0 +1,21 @@
+.bg {
+  /* The image used */
+  background-image: url("/assets/grass.jpg");
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+input[type='radio']:checked {
+  background-color: rgb(16, 187, 67);
+  outline-color: rgb(16, 187, 67);
+  color: rgb(16, 187, 67);
+}
+:focus {
+  border-color: rgb(16, 187, 67);
+} 
+button:hover {
+  background-color: rgb(16, 187, 67);
+  color: white;
+}
