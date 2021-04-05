@@ -68,9 +68,9 @@ class MatchController extends Controller
             'match_venue' => ['required', 'string', 'exists:stadia,name'],
             'date' => ['required', 'date_format:Y-m-d', 'after:today'],
             'time' => ['required', 'date_format:H:i'],
-            'main_referee' => ['required', 'string', 'alpha_dash'],
-            'first_linesman' => ['required', 'string', 'alpha_dash'],
-            'second_linesman' => ['required', 'string', 'alpha_dash'],
+            'main_referee' => ['required', 'string'],
+            'first_linesman' => ['required', 'string'],
+            'second_linesman' => ['required', 'string'],
         ]);
 
         if ($valid->fails()) {
@@ -105,9 +105,9 @@ class MatchController extends Controller
             'match_venue' => ['required', 'string', 'exists:stadia,name'],
             'date' => ['required', 'date_format:Y-m-d', 'after:today'],
             'time' => ['required', 'date_format:H:i'],
-            'main_referee' => ['required', 'string', 'alpha_dash'],
-            'first_linesman' => ['required', 'string', 'alpha_dash'],
-            'second_linesman' => ['required', 'string', 'alpha_dash'],
+            'main_referee' => ['required', 'string'],
+            'first_linesman' => ['required', 'string'],
+            'second_linesman' => ['required', 'string'],
         ]);
 
         if ($valid->fails()) {

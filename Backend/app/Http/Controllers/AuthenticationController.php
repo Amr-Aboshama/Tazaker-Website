@@ -13,7 +13,7 @@ class AuthenticationController extends Controller
     public function signIn(Request $request)
     {
         $valid = Validator::make($request->all(), [
-            'username' => ['required', 'string', 'min:4'],
+            'username' => ['required', 'alpha_num', 'min:4'],
             'password' => ['required', 'string', 'min:8'],
         ]);
 

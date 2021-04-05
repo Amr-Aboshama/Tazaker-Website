@@ -11,7 +11,7 @@ class StadiumController extends Controller
     public function addStadium(Request $request)
     {
         $valid = Validator::make($request->all(),[
-            'name' => ['required', 'alpha_num', 'unique:stadia'],
+            'name' => ['required', 'string', 'unique:stadia'],
             'width' => ['required', 'numeric'],
             'length' => ['required', 'numeric'],
         ]);
