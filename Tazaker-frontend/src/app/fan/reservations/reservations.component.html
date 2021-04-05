@@ -1,6 +1,8 @@
 <app-navbar></app-navbar>
 
 <div class="bg">
+  <div class="p-8">
+  </div>
   <div class="container  mx-auto  px-4 h-full">
 
         <div class="p-4">
@@ -24,16 +26,16 @@
                   <span class="whitespace-no-wrap"> Email:  {{ User.email }}</span>
                 </p>
                 <p class="text-sm text-gray-500 mt-4">
-                  <span class="whitespace-no-wrap"> BirthDate:  {{ User.Birth_date }}</span>
+                  <span class="whitespace-no-wrap"> BirthDate:  {{ User.birthdate }}</span>
                 </p>
                 <p class="text-sm text-gray-500 mt-4">
-                  <span class="whitespace-no-wrap"> Gender:  {{ User.Gender }}</span>
+                  <span class="whitespace-no-wrap"> Gender:  {{ User.gender }}</span>
                 </p>
                 <p class="text-sm text-gray-500 mt-4">
                   <span class="whitespace-no-wrap"> City:  {{ User.city }}</span>
                 </p>
-                <p class="text-sm text-gray-500 mt-4" *ngIf="User.Address != null">
-                  <span class="whitespace-no-wrap"> Address:  {{ User.Address }}</span>
+                <p class="text-sm text-gray-500 mt-4" *ngIf="User.address != null">
+                  <span class="whitespace-no-wrap"> Address:  {{ User.address }}</span>
                 </p>
 
                   <!--
@@ -50,16 +52,78 @@
         <!-- end of table-->
         </div>
 
-
-
-
-
-
-
-
-
-
-
-
 </div>
+<!--- Print reservations -->
+
+<div class="container  mx-auto  px-4 h-full">
+
+  <div class="p-4">
+    <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+        <div class="flex-auto p-4">
+          <div class="flex flex-wrap">
+            <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+              <h4 class="text-3xl text-xl">
+
+                  Reservations :
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="container  mx-auto  px-4 h-full">
+
+  <div class="p-4">
+  <!--table-->
+    <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+      <tr *ngFor='let ticket of tickets'>
+        <div class="flex-auto p-4">
+          <div class="flex flex-wrap">
+
+            <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+              <h4 class="text-3xl text-xl">
+                  {{ ticket.match_details.home_team }} VS {{ ticket.match_details.away_team}}
+              </h4>
+              <span class="font-semibold text-xl text-gray-500">
+              </span>
+            </div>
+          </div>
+
+          <p class="text-sm text-gray-500 mt-4">
+            <span class="whitespace-no-wrap"> Seat row:  {{ ticket.seat_row }}</span>
+          </p>
+          <p class="text-sm text-gray-500 mt-4">
+            <span class="whitespace-no-wrap"> Seat column :  {{ ticket.seat_column }}</span>
+          </p>
+          <p class="text-sm text-gray-500 mt-4">
+            <span class="whitespace-no-wrap"> Seat id:  {{ ticket.id }}</span>
+          </p>
+          <br>
+
+          <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+          (click)="cancelReservation(ticket.id)">
+            Cancel
+          </button>
+
+        </div>
+
+      </tr>
+      </div>
+  <!-- end of table-->
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 </div>

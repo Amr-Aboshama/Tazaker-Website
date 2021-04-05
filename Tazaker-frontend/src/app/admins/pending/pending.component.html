@@ -14,7 +14,7 @@
                 <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                   <h4 class="text-3xl text-xl">
 
-                      {{user.First_name }} {{ user.last_name }}
+                      {{user.first_name }} {{ user.last_name }}
                   </h4>
                   <span class="font-semibold text-xl text-gray-500">
 
@@ -29,7 +29,7 @@
               <!-- for different users -->
 
                 <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold md:py-2 md:px-4 border border-gray-400 rounded shadow"
-
+                  (click)="approveORnot(user.username,1)"
                 >
                   Accept
                 </button>
@@ -37,7 +37,7 @@
 
 
                 <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold md:ml-4 md:py-2 md:px-4 border border-gray-400 rounded shadow"
-                (click)="removeRequest(user.id)"
+                (click)="approveORnot(user.username , 0)"
                 >
                   Deny
                 </button>

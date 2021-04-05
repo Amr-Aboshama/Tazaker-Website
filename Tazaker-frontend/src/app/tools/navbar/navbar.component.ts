@@ -8,9 +8,12 @@ import { ActivatedRoute,Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  id: number=parseInt( this.route.snapshot.params['id'] );
+  id: number;
 
-  constructor(private route: ActivatedRoute ) { }
+  constructor(private route: ActivatedRoute ) {
+    this.id = parseInt(localStorage.getItem('role'), 10);
+    console.log('THE ID IS in navbar :' , this.id);
+  }
 
   ngOnInit(): void {
   }

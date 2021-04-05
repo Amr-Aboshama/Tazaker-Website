@@ -9,13 +9,36 @@ import { MyStrings } from 'src/app/classes/strings';
 export class ReservationsService {
   host = new MyStrings();
 
-
- // baseURL: string = "http://localhost:3000/";
   constructor(private http: HttpClient) { }
 
-  getUserInfobyid(username: number):Observable<any>{
-    return this.http.get<any>(this.host.localhost+"user/"+username);
+  getUserInfo():Observable<any>{
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer '+localStorage.getItem('token')}
+    console.log(headers);
+
+
+    return this.http.get<any>(this.host.serverhost+'api/auth/viewUserInfo',{'headers':headers});
   }
+
+  cancelMatchReservation(ticket_id : number):Observable<any>{
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer '+localStorage.getItem('token')}
+    const body ={ticket_id : ticket_id}
+
+   // const body=JSON.stringify(pending);
+    console.log(body)
+
+
+    return this.http.delete(this.host.serverhost +'api/fan/cancelTicket' ,{'headers':headers, 'body': body})
+  }
+
+  /// not working
+  getMatchName(match_id : number):Observable<any>{
+
+    return this.http.get<any>(this.host.serverhost+"api/unauth/viewMatches?="+match_id);
+  }
+
+
 
 
 }

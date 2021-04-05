@@ -24,11 +24,12 @@ export class HomeComponent implements OnInit {
   constructor(private HttpService: HomeService ,private route: ActivatedRoute , private router: Router) {
     this.items = this.Matches;
     this.id = parseInt(localStorage.getItem('role'), 10);
+    console.log('THE ID IS :' , this.id);
    }
 
   ngOnInit(): void {
 
-    if (this.id != 0  ){
+    if (this.id != 0 || this.id == undefined  ){
 
     this.HttpService.getmatches().subscribe(
       data => {

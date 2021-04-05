@@ -16,10 +16,14 @@ export class StadiumService {
   constructor(private http: HttpClient) { }
 
   addStadium(stadium: stadium): Observable<any> {
-    const headers = { 'content-type': 'application/json'}
-    const body=JSON.stringify(stadium);
+    const headers = { 'Content-Type': 'application/json',
+    'Authorization': 'Bearer '+localStorage.getItem('token')}
+    //const body=JSON.stringify(stadium);
+    //console.log(body)
+    const body = { name:stadium.name,length: stadium.row_count,width: stadium.column_count }
+
     console.log(body)
-    return this.http.post(this.host.localhost + 'stadium', body,{'headers':headers})
+    return this.http.post<any>(this.host.serverhost + 'api/manager/addStadium',body ,{'headers':headers})
   }
 
 }
