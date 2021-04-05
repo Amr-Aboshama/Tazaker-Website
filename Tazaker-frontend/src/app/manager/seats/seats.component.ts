@@ -52,6 +52,8 @@ export class SeatsComponent implements OnInit {
       }
       );
   }
+
+
 generateStadiumSeats(){
   this.StadiumSeats = [];
 
@@ -90,8 +92,12 @@ generateStadiumSeats(){
 toggleModal(){
   this.showModal = !this.showModal;
 }
-////////////// Modal ///////////////////
 
+
+
+
+
+////////////// Modal ///////////////////
 Modal(){
   this.ModalForm = this.fb.group({
     Credit_number:['', [Validators.minLength(8),Validators.maxLength(8), Validators.required]],
@@ -104,6 +110,20 @@ ReserveTicket(){
   .subscribe(data => {
     console.log(data),
     (err: any) => console.log(err)
+
+    // refresh
+    this.HttpService.getSeatsOfStadium(this.Matchid)
+    .subscribe( data => {
+      this.Stadium=data,
+      this.Stadium.column_count = data.length,
+      this.Stadium.row_count = data.width,
+
+      this.ReservedSeats=data.reserved_seats,
+      (err: any) => console.log(err),
+
+      this.generateStadiumSeats()
+    }
+    );
 
   })
 this.toggleModal();

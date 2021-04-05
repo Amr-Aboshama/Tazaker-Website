@@ -32,17 +32,21 @@ export class MatchComponent implements OnInit {
     //get id of match to be able to edit it
     this.route.paramMap.subscribe(params => {
       const MatchId = this.MatchId;
+      console.log("my match id is ", MatchId)
       if (MatchId) {
         this.EditMode = true;
         this.getMatch(MatchId);
       }
     });
+
+
   }
 
   addMatch() {
     this.HttpService.addMatch(this.matchForm.getRawValue())
       .subscribe(data => {
-        console.log(data),
+
+        console.log('i am the match data ',data),
         (err: any) => console.log(err)
 
       })
@@ -53,7 +57,7 @@ export class MatchComponent implements OnInit {
     this.HttpService.getAllStadiums()
     .subscribe(
       data => {
-        this.Stadiums = data,
+        this.Stadiums = data.stadiums,
         (err: any) => console.log(err),
         console.log(this.Stadiums)
       });
@@ -63,36 +67,42 @@ export class MatchComponent implements OnInit {
 
   createMatch(){
     this.matchForm = this.fb.group({
-      Home_team:['', Validators.required],
-      Away_team:['', Validators.required],
-      Match_venue:['' , Validators.required],
-      Date:['', Validators.required],
-      Time:['', Validators.required],
-      Main_referee:[''],
-      First_linesman:[''],
-      Second_linesman:['']
+      home_team:['', Validators.required],
+      away_team:['', Validators.required],
+      match_venue:['' , Validators.required],
+      date:['', Validators.required],
+      time:['', Validators.required],
+      main_referee:[''],
+      first_linesman:[''],
+      second_linesman:['']
     });
   }
 
   //edit
   getMatch( id: number) {
+    console.log('received id :' , id)
     this.HttpService.getMatchbyid(id)
-      .subscribe(
-        (match: match) => this.editMatch(match),
+      .subscribe(  data => {
+        console.log(data.matches[0]),
+        this.editMatch(data.matches[0]),
         (err: any) => console.log(err)
+
+
+      }
       );
   }
 
   editMatch(match: match) {
+    console.log("Hi i am editing");
     this.matchForm.patchValue({
-      Home_team: match.home_team,
-      Away_team: match.away_team,
-      Match_venue:match.match_venue,
-      Date:match.date,
-      Time:match.time,
-      Main_referee:match.main_referee,
-      First_linesman:match.first_linesman,
-      Second_linesman:match.second_linesman
+      home_team: match.home_team,
+      away_team: match.away_team,
+      match_venue:match.match_venue,
+      date:match.date,
+      time:match.time,
+      main_referee:match.main_referee,
+      first_linesman:match.first_linesman,
+      second_linesman:match.second_linesman
     });
 
   }

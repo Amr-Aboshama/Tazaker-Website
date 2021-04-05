@@ -1,3 +1,4 @@
+import { pending } from './../../classes/pending';
 import { User } from './../../classes/User';
 import { PendingService } from './pending.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,9 +13,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PendingComponent implements OnInit {
 
   PendingUsers: User[];
+
   // PendingUsers: User[];
 
-  constructor(private HttpService: PendingService,private route: ActivatedRoute , private router: Router) { }
+  constructor(private HttpService: PendingService,private route: ActivatedRoute , private router: Router) {
+
+   }
 
   ngOnInit(): void {
 
@@ -22,8 +26,10 @@ export class PendingComponent implements OnInit {
 
   }
 
-  removeRequest(Userid: number){
-    this.HttpService.removeRequestbyid(Userid).subscribe(
+  approveORnot(username : string , approval : number){
+    console.log('username is ', username , 'approveal is ', approval)
+
+    this.HttpService.approveORnot(username , approval).subscribe(
       data => {
         console.log(data),
         this.refreshPendingUsers();
@@ -34,7 +40,7 @@ export class PendingComponent implements OnInit {
     refreshPendingUsers(){
       this.HttpService.getPendingUsers().subscribe(
         data => {
-          this.PendingUsers = data,
+          this.PendingUsers = data.managers,
           (err: any) => console.log(err),
           console.log(this.PendingUsers)
         });

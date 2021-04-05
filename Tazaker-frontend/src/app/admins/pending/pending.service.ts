@@ -15,21 +15,23 @@ export class PendingService {
   constructor(private http: HttpClient) { }
 
 
-  approveORnot(pendingManager: pending):Observable<any>{
-    const headers = { 'content-type': 'application/json'}
-    const body=JSON.stringify(pending);
+  approveORnot(username : string , approval : number):Observable<any>{
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer '+localStorage.getItem('token')}
+    const body ={username : username, approve : approval }
+   // const body=JSON.stringify(pending);
     console.log(body)
-    return this.http.put(this.host.localhost + 'match/'+pendingManager , body,{'headers':headers})
+
+    return this.http.put(this.host.serverhost +'api/admin/approveOrDisapproveManager' , body,{'headers':headers})
   }
 
   getPendingUsers():Observable<any>{
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer '+localStorage.getItem('token')}
 
-    return this.http.get<any>(this.host.serverhost+'api/admin/showNonApprovedManagers');
+    return this.http.get<any>(this.host.serverhost+'api/admin/showNonApprovedManagers',{'headers':headers});
   }
 
-  removeRequestbyid(id:number):Observable<any>
-  {
-    return this.http.delete(this.host.localhost + 'pending/'+id);
-  }
+
 
 }

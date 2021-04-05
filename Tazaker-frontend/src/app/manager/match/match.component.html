@@ -21,17 +21,17 @@
                 class="block uppercase text-gray-700 text-xs font-bold mb-2"
                 htmlFor="hometeam"
               >
-                Home Team:
+                home Team:
               </label>
-              <label class="text-red-500" *ngIf="matchForm.get('Home_team').hasError('required') && matchForm.get('Home_team').touched ">
+              <label class="text-red-500" *ngIf="matchForm.get('home_team').hasError('required') && matchForm.get('home_team').touched ">
                you must enter a home team
               </label>
               <input
-                formControlName="Home_team"
+                formControlName="home_team"
                 type="email"
                 class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                placeholder="Home team"
-                name="Home_team"
+                placeholder="home team"
+                name="home_team"
 
               />
             </div>
@@ -41,17 +41,17 @@
                 class="block uppercase text-gray-700 text-xs font-bold md:mb-2"
                 htmlFor="awayteam"
               >
-                Away Team:
+                away Team:
               </label>
-              <label class="text-red-500" *ngIf="matchForm.get('Away_team').hasError('required') && matchForm.get('Away_team').touched ">
+              <label class="text-red-500" *ngIf="matchForm.get('away_team').hasError('required') && matchForm.get('away_team').touched ">
                 you must enter an away team
                </label>
               <input
-                formControlName="Away_team"
+                formControlName="away_team"
                 type="email"
                 class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                 placeholder="away team"
-                name="Away_team"
+                name="away_team"
 
               />
             </div>
@@ -62,14 +62,14 @@
                 class="block uppercase text-gray-700 text-xs font-bold mb-2"
                 htmlFor="match_venue"
               >
-               Match Venue:
+               match Venue:
               </label>
-              <label class="text-red-500" *ngIf="matchForm.get('Match_venue').hasError('required') && matchForm.get('Match_venue').touched ">
+              <label class="text-red-500" *ngIf="matchForm.get('match_venue').hasError('required') && matchForm.get('match_venue').touched ">
                 you must enter the match venue
                </label>
 
               <select
-              formControlName="Match_venue"
+              formControlName="match_venue"
               class="w-full border-2 bg-white border-gray-200 rounded px-3 py-3 outline-none"
               >
                 <option class="py-1" disabled selected>-- Choose stadium --</option>
@@ -88,7 +88,7 @@
                 Date:
               </label>
               <input
-                formControlName="Date"
+                formControlName="date"
                 type="date"
                 class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                 placeholder="date"
@@ -105,7 +105,7 @@
                 Time:
               </label>
               <input
-                formControlName="Time"
+                formControlName="time"
                 type="time"
                 class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                 placeholder="time"
@@ -125,14 +125,14 @@
                 class="block uppercase text-gray-700 text-xs font-bold md:mb-2"
                 htmlFor="mainreferee"
               >
-                Main referee:
+                main referee:
               </label>
               <input
-                formControlName="Main_referee"
+                formControlName="main_referee"
                 type="email"
                 class="md:px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                 placeholder="main referee"
-                name="Main_referee"
+                name="main_referee"
 
               />
             </div>
@@ -142,14 +142,14 @@
                 class="block uppercase text-gray-700 text-xs font-bold mb-2"
                 htmlFor="firstlinesman"
               >
-              First linesman:
+              first linesman:
               </label>
               <input
-                formControlName="First_linesman"
+                formControlName="first_linesman"
                 type="email"
                 class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                 placeholder="first linesman"
-                name="First_linesman"
+                name="first_linesman"
 
               />
             </div>
@@ -159,15 +159,15 @@
                 class="block uppercase text-gray-700 text-xs font-bold mb-2"
                 htmlFor="secondlinesman"
               >
-              Second linesman:
+              second linesman:
               </label>
 
               <input
-                formControlName="Second_linesman"
+                formControlName="second_linesman"
                 type="email"
                 class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                 placeholder="second linesman"
-                name="Second_linesman"
+                name="second_linesman"
 
               />
             </div>
@@ -179,7 +179,7 @@
                 class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                 type="button"  (click)="ChooseMode()">
 
-                {{this.EditMode ? "Update Match" : "Add Match"}}
+                {{this.EditMode ? "Update match" : "Add match"}}
               </button>
             </div>
           </form>

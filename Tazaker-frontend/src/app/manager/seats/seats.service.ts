@@ -30,7 +30,8 @@ export class SeatsService {
   }
 
   reserveSeat(matchId : number , seat : seat): Observable<any> {
-    const headers = { 'content-type': 'application/json'}
+    const headers = { 'content-type': 'application/json',
+    'Authorization': 'Bearer '+localStorage.getItem('token')}
     const bodyx =
     {
             "match_id": matchId,
@@ -40,7 +41,7 @@ export class SeatsService {
     //const body=JSON.stringify(seat);
     console.log(headers);
     console.log(bodyx);
-    return this.http.post(this.host.serverhost + 'match', bodyx,{'headers':headers})
+    return this.http.post(this.host.serverhost + 'api/fan/reserveTicket', bodyx,{'headers':headers})
   }
 
 }
