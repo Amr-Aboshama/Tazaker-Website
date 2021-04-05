@@ -37,7 +37,8 @@ export class HomeService {
                       'Authorization': 'Bearer '+localStorage.getItem('token')}
     const body= {username: username}
     //console.log(localStorage.getItem('token'))
-    return this.http.delete<any>(this.host.serverhost + 'api/admin/removeUser',{'headers':headers, 'body': body});
+    // Add body again.
+    return this.http.delete<any>(this.host.serverhost + 'api/admin/removeUser',{'headers':headers});
   }
 
 }

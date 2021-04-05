@@ -3,6 +3,8 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Users } from './users';
 import { MyStrings } from './classes/strings';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { generate } from 'rxjs';
 
 @Injectable({
 providedIn: 'root'
@@ -18,36 +20,62 @@ baseUrl:string = "http://localhost:3000/";
 constructor(private httpClient : HttpClient) { }
 public userlogin(username, password) {
 
-const body={ username : username,
-            password: password}
+  const body={ 
+    username : username,
+    password: password 
+  }
 
-console.log(body)
-return this.httpClient.post<any>(this.host.serverhost + 'api/unauth/signIn', body)
-
-.pipe(map(Users => {
-console.log(Users.token);
-this.setToken(Users.token);
-//if_
-var role = 2;
-if ( Users.role == 'Admin') {
-  role = 0;
-}
-else if (Users.role == 'Manager'){
-  role = 1;
-}
-localStorage.setItem('role', role.toString());
-console.log(localStorage.getItem('role'));
-console.log(localStorage.getItem('token'));
-this.getLoggedInName.emit(true);
-return Users;
-}));
+  console.log(body)
+  return this.httpClient.post<any>(this.host.serverhost + 'api/unauth/signIn', body)
+    .pipe(map(Users => {
+      console.log(Users.token);
+      this.setToken(Users.token);
+      
+      var role = 2;
+      if ( Users.role == 'Admin') {
+        role = 0;
+      }
+      else if (Users.role == 'Manager'){
+        role = 1;
+      }
+      localStorage.setItem('role', role.toString());
+      console.log(localStorage.getItem('role'));
+      console.log(localStorage.getItem('token'));
+      this.getLoggedInName.emit(true);
+      return Users;
+  }));
 }
 
 //sign up
-public userregistration(name,email,pwd) {
-return this.httpClient.post<any>(this.baseUrl + '/register.php', { name,email, pwd })
+public userregistration(username, pwd, confPwd, fname, lname, bdate, gen, city, address, email, role) {
+  const body = {
+    username: username,
+    password: pwd,
+    password_confirmation: confPwd,
+    email: email,
+    first_name: fname,
+    last_name: lname,
+    birthdate: bdate,
+    gender: gen,
+    address: address,
+    role: role,
+    city: city
+  }
+
+return this.httpClient.post<any>(this.host.serverhost + 'api/unauth/signUp', body)
 .pipe(map(Users => {
-return Users;
+  this.setToken(Users.token);
+  
+  var role = 2;
+  if ( Users.role == 'Admin') {
+    role = 0;
+  }
+  else if (Users.role == 'Manager'){
+    role = 1;
+  }
+  localStorage.setItem('role', role.toString());
+  this.getLoggedInName.emit(true);
+  return Users;
 }));
 }
 
@@ -62,10 +90,10 @@ deleteToken() {
 localStorage.removeItem('token');
 }
 isLoggedIn() {
-const usertoken = this.getToken();
-if (usertoken != null) {
-return true
-}
-return false;
-}
+  const usertoken = this.getToken();
+  if (usertoken != null) {
+  return true
+    }
+  return false;
+  }
 }

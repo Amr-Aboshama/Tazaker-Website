@@ -8,16 +8,16 @@
 
       <h2 class="text-center text-2xl font-bold mb-10 text-gray-800">Create Your Account</h2>
 
-      <form class="space-y-3" [formGroup]="signupForm" (ngSubmit)="signUp(signupForm)">
+      <form class="space-y-3" [formGroup]="signupForm" (ngSubmit)="signUp()">
 
         <div>
           <label class="block mb-1 font-bold text-gray-500" placeholder="First Name">First Name</label>
-          <input type="text" class="form-control w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="First Name" formControlName="firstname" (keyup)="onKey($event, 'firstname')">
+          <input type="text" class="form-control w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="First Name" formControlName="firstname">
         </div>
 
         <div>
           <label class="block mb-1 font-bold text-gray-500">Last Name</label>
-          <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="Last Name" formControlName="lastname" (keyup)="onKey($event, 'lastname')">
+          <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="Last Name" formControlName="lastname">
         </div>
 
         <div>
@@ -35,22 +35,22 @@
 
         <div>
           <label class="block mb-1 font-bold text-gray-500">Email</label>
-          <input type="email" class="form-control w-full border-2 border-gray-200 p-3 rounded outline-none" formControlName="email" placeholder="Email" (keyup)="onKey($event, 'email')">
+          <input type="email" class="form-control w-full border-2 border-gray-200 p-3 rounded outline-none" formControlName="email" placeholder="Email">
         </div>
 
         <div>
           <label class="block mb-1 font-bold text-gray-500">Username</label>
-          <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none" formControlName="username" placeholder="Username" (keyup)="onKey($event, 'firstname')">
+          <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none" formControlName="username" placeholder="Username">
         </div>
 
         <div>
           <label class="block mb-1 font-bold text-gray-500">Password</label>
-          <input type="password" class="w-full border-2 border-gray-200 p-3 rounded outline-none" formControlName="password" placeholder="**************" (keyup)="onKey($event, 'password')">
+          <input type="password" class="w-full border-2 border-gray-200 p-3 rounded outline-none" formControlName="password" placeholder="**************">
         </div>
 
         <div>
           <label class="block mb-1 font-bold text-gray-500">Confirm Password</label>
-          <input type="password" class="w-full border-2 border-gray-200 p-3 rounded outline-none" formControlName="confirmPassword" placeholder="**************" (keyup)="onKey($event, 'confirmPassword')">
+          <input type="password" class="w-full border-2 border-gray-200 p-3 rounded outline-none" formControlName="confirmPassword" placeholder="**************">
         </div>
 
         <div>
@@ -63,7 +63,7 @@
 
         <div>
           <label class="block mb-1 font-bold text-gray-500">Address</label>
-          <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none" formControlName="address" placeholder="Address" (keyup)="onKey($event, 'address')">
+          <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none" formControlName="address" placeholder="Address">
         </div>
 
         <div>
