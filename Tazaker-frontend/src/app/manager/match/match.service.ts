@@ -32,7 +32,7 @@ export class MatchService {
     };
     console.log('The body in service ',body)
 
-    return this.http.post(this.host.serverhost + 'api/manager/createMatch',{'headers':headers , 'body': body})
+    return this.http.post(this.host.serverhost + 'api/manager/createMatch',body ,{'headers':headers})
   }
 
   getAllStadiums():Observable<any>{
