@@ -27,6 +27,7 @@ export class SeatsComponent implements OnInit {
   Modalseat: seat;
 
   showModal = false;
+  id : number;
 
   public ModalForm : FormGroup;
 //  private pusherClient: Pusher;
@@ -34,6 +35,7 @@ export class SeatsComponent implements OnInit {
 
   constructor(private fb: FormBuilder,private HttpService: SeatsService ,private route: ActivatedRoute , private router: Router) {
     this.Modal();
+    this.id = parseInt(localStorage.getItem('role'), 10);
    }
 
   ngOnInit(): void {
@@ -56,8 +58,8 @@ export class SeatsComponent implements OnInit {
 
         this.ReservedSeats=data.reserved_seats,
         (err: any) => console.log(err),
-        console.log(data),
-        console.log(this.ReservedSeats),
+      //  console.log(data),
+       // console.log(this.ReservedSeats),
         this.generateStadiumSeats()
       }
       );

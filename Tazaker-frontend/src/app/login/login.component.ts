@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   },
   error => {
   console.log(error)
-  alert("User name or password is incorrect")
+  alert("Username or password is incorrect")
   });
   }
   get username() { return this.angForm.get('username'); }

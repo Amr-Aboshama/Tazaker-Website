@@ -2,8 +2,9 @@ import { match } from './../../classes/match';
 import { Component, OnInit } from '@angular/core';
 import { MatchService } from './match.service';
 import { FormBuilder , FormGroup , Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { stadium } from 'src/app/classes/stadium';
+import { DatePipe, Time } from '@angular/common';
 
 @Component({
   selector: 'app-match',
@@ -15,14 +16,15 @@ export class MatchComponent implements OnInit {
   match = new match();
   MatchId: number=parseInt( this.route.snapshot.params['id'] );
   EditMode = false;
+  time : Time;
 
   Stadiums: stadium[];
 
 
   public matchForm : FormGroup;
 
-  constructor(private fb: FormBuilder,private route: ActivatedRoute,private HttpService: MatchService) {
-
+  constructor(private fb: FormBuilder,private route: ActivatedRoute,private HttpService: MatchService, private router: Router) {
+    //this.time = new Time();
     this.createMatch();
     this.getAllstadiums();
 
@@ -47,9 +49,13 @@ export class MatchComponent implements OnInit {
       .subscribe(data => {
 
         console.log('i am the match data ',data),
-        (err: any) => console.log(err)
+        alert("match added successfully")
+        this.router.navigate(['/home'])
+      }, error => {
+        alert("Error match couldn't be done please try another input")
 
-      })
+      }
+      )
   }
 
   getAllstadiums(){
@@ -72,9 +78,11 @@ export class MatchComponent implements OnInit {
       match_venue:['' , Validators.required],
       date:['', Validators.required],
       time:['', Validators.required],
-      main_referee:[''],
-      first_linesman:[''],
-      second_linesman:['']
+      main_referee:['', Validators.required],
+      first_linesman:['', Validators.required],
+      second_linesman:['', Validators.required],
+      match_id:['']
+
     });
   }
 
@@ -93,8 +101,10 @@ export class MatchComponent implements OnInit {
   }
 
   editMatch(match: match) {
-    console.log("Hi i am")
+    console.log("Hi i am");
+
     this.matchForm.patchValue({
+      match_id:match.id,
       home_team: match.home_team,
       away_team: match.away_team,
       match_venue:match.match_venue,
@@ -103,14 +113,20 @@ export class MatchComponent implements OnInit {
       main_referee:match.main_referee,
       first_linesman:match.first_linesman,
       second_linesman:match.second_linesman
+
     });
 
   }
 
   UpdateMatch(){
     this.HttpService.EditMatch(this.matchForm.getRawValue(),this.MatchId).subscribe(data => {
-      console.log(data)
-    });
+      console.log(data),
+      alert(" match edited successfully")
+    }, error => {
+      console.log(error),
+      alert("Match was not updated please try correct data")
+    }
+    );
 
   }
 

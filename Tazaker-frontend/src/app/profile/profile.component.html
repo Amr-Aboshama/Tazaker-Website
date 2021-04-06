@@ -50,6 +50,7 @@
           <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none"
           formControlName="username"
           placeholder="Username"
+
          >
         </div>
 
@@ -101,9 +102,12 @@
 
 
           <div>
+            <label class="text-red-500" *ngIf="password.get('old_password').hasError('required') && password.get('old_password').touched ">
+              Password must be at least 8 numbers
+             </label>
             <label class="block mb-1 font-bold text-gray-500">Old Password</label>
             <input type="password" class="form-control w-full border-2 border-gray-200 p-3 rounded outline-none"
-            formControlName="old_password" placeholder="Email">
+            formControlName="old_password" placeholder="old password">
           </div>
 
           <label class="text-red-500" *ngIf="password.get('new_password').hasError('required') && password.get('new_password').touched ">
@@ -112,12 +116,15 @@
           <div>
             <label class="block mb-1 font-bold text-gray-500">New Password</label>
             <input type="password" class="form-control w-full border-2 border-gray-200 p-3 rounded outline-none"
-            formControlName="new_password" placeholder="Email">
+            formControlName="new_password" placeholder="new password">
           </div>
           <div>
+            <label class="text-red-500" *ngIf="password.get('new_password_confirmation').hasError('required') && password.get('new_password_confirmation').touched ">
+              Password must be at least 8 numbers
+             </label>
             <label class="block mb-1 font-bold text-gray-500"> Confirm new Password</label>
             <input type="password" class="form-control w-full border-2 border-gray-200 p-3 rounded outline-none"
-            formControlName="new_password_confirmation" placeholder="Email">
+            formControlName="new_password_confirmation" placeholder="confirm new password">
           </div>
           <br>
 

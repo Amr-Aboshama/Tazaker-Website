@@ -43,7 +43,7 @@ export class MatchService {
 
 
   getMatchbyid(match_id : number):Observable<any>{
-    return this.http.get<any>(this.host.serverhost+"api/unauth/viewMatches?="+match_id)
+    return this.http.get<any>(this.host.serverhost+"api/unauth/viewMatches?match_id="+match_id)
   }
   ////////////////////////////////
 

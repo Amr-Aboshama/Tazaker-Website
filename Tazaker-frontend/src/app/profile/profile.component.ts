@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
 
   cities: Array<any> = ["Cairo", "Alexandria", "Aswan", "	Asyut", "	Beheira", "Beni Suef", "Cairo", "Dakahlia", "Damietta", "Faiyum", "Gharbia", "Giza", "Ismailia", "Kafr El Sheikh", "Luxor", "Matruh", "Minya", "Monufia", "New Valley", "North Sinai", "Port Said", "Qalyubia", "Qena", "Red Sea", "Sharqia", "Sohag", "South Sinai", "Suez"];
 
-  constructor(private HttpService:ProfileService , private fb: FormBuilder) {
+  constructor(private HttpService:ProfileService , private fb: FormBuilder, private router: Router) {
     this.createProfile();
     this.updatePassword();
 
@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
   createProfile(){
 
   this.editProfileForm=this.fb.group({
-    username : ['' , Validators.required],
+    username : [{value: '', disabled: true} , Validators.required],
     Password: [''],
     first_name: ['' ,  Validators.required],
     last_name: ['' ,  Validators.required],
@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
     gender: [''],
     city: ['' ,  Validators.required],
     address: ['' ,  Validators.required],
-    email: ['' ,  Validators.required],
+    email: [{value: '', disabled: true} ,  Validators.required],
 
     role: ['']
   });
@@ -91,6 +91,9 @@ export class ProfileComponent implements OnInit {
   editProfile(){
     this.HttpService.editProfile(this.editProfileForm.getRawValue()).subscribe(data => {
       console.log(data)
+      alert(" Data edited successfully "),
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this.router.navigate(['/profile']));
     }, error => {
       console.log(error),
       alert(" Ooopss !!! an Error has occured Please try again ")
@@ -99,9 +102,21 @@ export class ProfileComponent implements OnInit {
   }
 
   changePassword(){
-    this.HttpService.changePassword(this.password).subscribe(data => {console.log(data),
-    (err : any) => console.log(err)
-  })
+    this.HttpService.changePassword(this.password).subscribe(data =>
+       {console.log(data),
+      alert("Password changed successfully !"),
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this.router.navigate(['/profile']));
+      //this.router.red(['/profile'])
+
+    }, error => {
+        console.log(error),
+        alert(" Password not entered correctly please retry !!")
+      }
+
+
+
+  )
   }
 
 

@@ -38,7 +38,7 @@ export class HomeService {
     const body= {username: username}
     //console.log(localStorage.getItem('token'))
     // Add body again.
-    return this.http.delete<any>(this.host.serverhost + 'api/admin/removeUser',{'headers':headers});
+    return this.http.delete<any>(this.host.serverhost + 'api/admin/removeUser',{'headers':headers , 'body': body});
   }
 
 }

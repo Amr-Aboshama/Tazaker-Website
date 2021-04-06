@@ -33,6 +33,7 @@ getUserInfo():Observable<any>{
     const headers = { 'content-type': 'application/json','Authorization': 'Bearer '+localStorage.getItem('token')}
     const body=JSON.stringify(Profile);
     console.log(body)
+    //this.host.serverhost = "http://localhost:8000/"
     return this.http.put(this.host.serverhost + 'api/auth/editUserInfo' , body,{'headers':headers})
   }
 
