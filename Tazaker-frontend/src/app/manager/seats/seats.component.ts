@@ -22,20 +22,19 @@ export class SeatsComponent implements OnInit {
   ReservedSeats: seat[];
   StadiumSeats: seat[];
   Myseat : seat;
-
   Modalseat: seat;
-
   showModal = false;
   id : number;
-
+  //const x ;
   public ModalForm : FormGroup;
 //  private pusherClient: Pusher;
 
 
-  constructor(private fb: FormBuilder,private HttpService: SeatsService ,private route: ActivatedRoute , private router: Router) {
+  constructor(private fb: FormBuilder,private HttpService: SeatsService ,private route: ActivatedRoute , private router: Router)
+   {
     this.Modal();
     this.id = parseInt(localStorage.getItem('role'), 10);
-    //interval(3000).subscribe(x => {this.fetchStadium()});
+    interval(3000).subscribe(x => {this.fetchStadium()});
 
    }
 
@@ -44,9 +43,15 @@ export class SeatsComponent implements OnInit {
     //get stadium for dimensions
     this.fetchStadium();
 
+    
+
 
 
   }
+
+  // ngOnDestroy() {
+  //   this.x.unsubscribe();
+  // }
 
   fetchStadium(){
     this.HttpService.getSeatsOfStadium(this.Matchid)
@@ -72,7 +77,7 @@ export class SeatsComponent implements OnInit {
 
 generateStadiumSeats(){
   this.StadiumSeats = [];
-
+ 
   for(let i=1 ; i<= this.Stadium.column_count ; i++){
     for(let j=1 ; j <= this.Stadium.row_count ; j++){
         this.Myseat=new seat();
