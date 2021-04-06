@@ -5,6 +5,7 @@ import { Users } from './users';
 import { MyStrings } from './classes/strings';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { generate } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
 providedIn: 'root'
@@ -44,6 +45,15 @@ public userlogin(username, password) {
       this.getLoggedInName.emit(true);
       return Users;
   }));
+}
+
+//Sign out
+public logout(){
+  const headers = {'Authorization': 'Bearer '+localStorage.getItem('token')}
+  this.httpClient.get<any>(this.host.serverhost + 'api/auth/signOut', {'headers': headers});
+  localStorage.removeItem('token');
+  localStorage.removeItem('role');
+  return;
 }
 
 //sign up

@@ -28,9 +28,7 @@ export class ReservationsService {
 
    // const body=JSON.stringify(pending);
     console.log(body)
-
-
-    return this.http.delete(this.host.serverhost +'api/fan/cancelTicket' ,{'headers':headers, 'body': body})
+    return this.http.delete(this.host.serverhost +'api/fan/cancelTicket' ,{'headers':headers})
   }
 
   /// not working
@@ -38,8 +36,4 @@ export class ReservationsService {
 
     return await this.http.get<any>(this.host.serverhost+"api/unauth/viewMatches?match_id="+match_id).toPromise();
   }
-
-
-
-
 }
