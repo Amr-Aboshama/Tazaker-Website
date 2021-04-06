@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-//this component is not used i am not sure if we need it yet
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { ProfileService } from './profile.service';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
+  editProfileForm: FormGroup;
   constructor() { }
 
   ngOnInit(): void {
