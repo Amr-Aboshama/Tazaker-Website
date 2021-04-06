@@ -6,9 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { match } from 'src/app/classes/match';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, concat } from 'rxjs';
+import { BehaviorSubject, concat, Observable, interval } from 'rxjs';
 import Pusher from 'pusher-js';
-
 
 
 @Component({
@@ -36,6 +35,7 @@ export class SeatsComponent implements OnInit {
   constructor(private fb: FormBuilder,private HttpService: SeatsService ,private route: ActivatedRoute , private router: Router) {
     this.Modal();
     this.id = parseInt(localStorage.getItem('role'), 10);
+    interval(1000).subscribe(x => {this.fetchStadium()});
    }
 
   ngOnInit(): void {
