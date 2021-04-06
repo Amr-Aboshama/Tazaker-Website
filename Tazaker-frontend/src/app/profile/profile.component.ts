@@ -15,35 +15,95 @@ export class ProfileComponent implements OnInit {
   EditMode = false;
   profile : User ;
   editProfileForm: FormGroup;
+  password : FormGroup;
 
   cities: Array<any> = ["Cairo", "Alexandria", "Aswan", "	Asyut", "	Beheira", "Beni Suef", "Cairo", "Dakahlia", "Damietta", "Faiyum", "Gharbia", "Giza", "Ismailia", "Kafr El Sheikh", "Luxor", "Matruh", "Minya", "Monufia", "New Valley", "North Sinai", "Port Said", "Qalyubia", "Qena", "Red Sea", "Sharqia", "Sohag", "South Sinai", "Suez"];
 
-  constructor(private HttpService:ProfileService , private fb: FormBuilder) { }
+  constructor(private HttpService:ProfileService , private fb: FormBuilder) {
+    this.createProfile();
+    this.updatePassword();
+
+   }
 
   ngOnInit(): void {
 
-    this.HttpService.getUserInfo().subscribe(data =>{
-      this.profile = data.user,
-      console.log(data),
-      (err: any) => console.log(err)
-    })
+      this.updateProfile()
+
   }
 
   createProfile(){
 
   this.editProfileForm=this.fb.group({
     username : ['' , Validators.required],
-    Password: ['' ],
-    first_name: [this.profile.username],
-    last_name: [''],
-    birthdate: [''],
+    Password: [''],
+    first_name: ['' ,  Validators.required],
+    last_name: ['' ,  Validators.required],
+    birthdate: ['' ,  Validators.required],
     gender: [''],
-    city: [''],
-    address: [''],
-    email: [''],
-    id : [''], //id is the role {0 => 'Admin', 1 => 'Manager' , 2 => 'Fan'}
+    city: ['' ,  Validators.required],
+    address: ['' ,  Validators.required],
+    email: ['' ,  Validators.required],
+
     role: ['']
+  });
+  }
+
+  updatePassword(){
+    this.password = this.fb.group({
+      old_password : ['' , [Validators.minLength(8) , Validators.required ]],
+      new_password :  ['' ,[Validators.minLength(8) , Validators.required ]],
+      new_password_confirmation : ['' , [Validators.minLength(8) , Validators.required ]]
+    })
+  }
+
+  ProfileValues( profile : User){
+
+    this.editProfileForm.patchValue({
+
+      username : profile.username,
+      Password: profile.Password,
+      first_name: profile.first_name,
+      last_name: profile.last_name,
+      birthdate: profile.birthdate,
+      gender: profile.gender,
+      city: profile.city,
+      address: profile.address,
+      email: profile.email,
+      role: profile.role
+
+    })
+
+  }
+
+  updateProfile(){
+
+    this.HttpService.getUserInfo()
+      .subscribe(  data => {
+        console.log(data.user),
+        this.ProfileValues(data.user),
+        (err: any) => console.log(err)
+
+
+      }
+      );
+  }
+
+  editProfile(){
+    this.HttpService.editProfile(this.editProfileForm.getRawValue()).subscribe(data => {
+      console.log(data)
+    }, error => {
+      console.log(error),
+      alert(" Ooopss !!! an Error has occured Please try again ")
+
+    });
+  }
+
+  changePassword(){
+    this.HttpService.changePassword(this.password).subscribe(data => {console.log(data),
+    (err : any) => console.log(err)
   })
   }
+
+
 
 }

@@ -93,7 +93,7 @@ export class MatchComponent implements OnInit {
   }
 
   editMatch(match: match) {
-    console.log("Hi i am editing");
+    console.log("Hi i am")
     this.matchForm.patchValue({
       home_team: match.home_team,
       away_team: match.away_team,

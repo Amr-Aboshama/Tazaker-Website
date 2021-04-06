@@ -1,21 +1,25 @@
 <div class="bg">
 <app-newnavbar></app-newnavbar>
-<div class="md:px-4">
-
-</div>
+<br>
+<br>
 <div class="container mx-auto  px-4 h-full">
   <div class="flex content-center items-center justify-center h-full">
     <div class="w-full lg:w-6/12 px-4">
     <!-- Signup form -->
     <div class="bg-white p-16 rounded-lg shadow-lg w-full">
 
-      <h2 class="text-center text-2xl font-bold mb-10 text-gray-800">Edit Your Account</h2>
+      <h2 class="text-center text-2xl font-bold mb-10 text-gray-800">My Account</h2>
 
-      <form class="space-y-3" [formGroup]="editProfileForm" >
+      <form class="space-y-3" [formGroup]="this.editProfileForm" >
 
         <div>
+
+          <label class="text-red-500" *ngIf="editProfileForm.get('first_name').hasError('required') && editProfileForm.get('first_name').touched ">
+            you must enter a first name
+           </label>
           <label class="block mb-1 font-bold text-gray-500" placeholder="First Name">First Name</label>
-          <input type="text" class="form-control w-full border-2 border-gray-200 p-3 rounded outline-none" placeholder="First Name"
+          <input type="text" class="form-control w-full border-2 border-gray-200 p-3 rounded outline-none"
+           placeholder="First Name"
           formControlName="first_name">
         </div>
 
@@ -29,17 +33,10 @@
           <label class="block mb-1 font-bold text-gray-500">Birth Date</label>
           <input  type="date" class="w-full border-2 border-gray-200 p-3 rounded outline-none"
           Name="birthdate"
-          formControlName="birthdate" min="1920-01-01" max="2000-12-31"
-          placeholder="{{ this.profile.birthdate }}"
-           onkeydown="return false">
-        </div>
-
-        <div>
-          <label class="block mb-1 font-bold text-gray-500">Gender</label>
-            <select class="w-full border-2 bg-white border-gray-200 rounded px-3 py-3 outline-none" formControlName="gender" placeholder="Gender">
-              <option class="py-1">-- Choose Gender --</option>
-           <!--   <option class="py-1" *ngFor="let gender of genders">{{gender}}</option> -->
-            </select>
+          formControlName="birthdate"
+          min="1920-01-01" max="2000-12-31"
+          placeholder=""
+          onkeydown="return false">
         </div>
 
         <div>
@@ -51,18 +48,9 @@
         <div>
           <label class="block mb-1 font-bold text-gray-500">Username</label>
           <input type="text" class="w-full border-2 border-gray-200 p-3 rounded outline-none"
-          formControlName="username" placeholder="Username">
-        </div>
-
-        <div>
-          <label class="block mb-1 font-bold text-gray-500">Password</label>
-          <input type="password" class="w-full border-2 border-gray-200 p-3 rounded outline-none" formControlName="password" placeholder="**************">
-        </div>
-
-        <div>
-          <label class="block mb-1 font-bold text-gray-500">Confirm Password</label>
-          <input type="password" class="w-full border-2 border-gray-200 p-3 rounded outline-none"
-          formControlName="confirmPassword" placeholder="**************">
+          formControlName="username"
+          placeholder="Username"
+         >
         </div>
 
         <div>
@@ -80,22 +68,75 @@
           formControlName="address" placeholder="Address">
         </div>
 
-        <div>
-          <label class="block mb-1 font-bold text-gray-500">Role</label>
-            <select class="w-full border-2 bg-white border-gray-200 rounded px-3 py-3 outline-none"
-            formControlName="role" placeholder="Role">
-              <option class="py-1">-- Choose Role --</option>
-           <!--   <option class="py-1" *ngFor="let role of roles">{{role}}</option> -->
-            </select>
-        </div>
+
 
         <br>
 
-        <button type="submit" class="block w-full  bg-gray-400 p-4 rounded text-gray-800 hover:text-yellow-800 transition duration-200">Sign Up</button>
+        <button type="submit" class="block w-full  bg-gray-400 p-4 rounded text-gray-800 hover:text-yellow-800 transition duration-200"
+        (click)="editProfile()" [disabled]="editProfileForm.invalid"
+        [ngStyle]="{'background-color': editProfileForm.invalid? '#ec1f1f' : '#95e692'}"
+
+        >
+          Submit Edit </button>
       </form>
 
     </div>
     </div>
   </div>
   </div>
+
+  <br>
+  <br>
+
+
+  <div class="container mx-auto  px-4 h-full">
+    <div class="flex content-center items-center justify-center h-full">
+      <div class="w-full lg:w-6/12 px-4">
+      <!-- Signup form -->
+      <div class="bg-white p-16 rounded-lg shadow-lg w-full">
+
+        <h2 class="text-center text-2xl font-bold mb-10 text-gray-800">Change Password</h2>
+
+        <form class="space-y-3" [formGroup]="this.password" >
+
+
+          <div>
+            <label class="block mb-1 font-bold text-gray-500">Old Password</label>
+            <input type="password" class="form-control w-full border-2 border-gray-200 p-3 rounded outline-none"
+            formControlName="old_password" placeholder="Email">
+          </div>
+
+          <label class="text-red-500" *ngIf="password.get('new_password').hasError('required') && password.get('new_password').touched ">
+            Password must be at least 8 numbers
+           </label>
+          <div>
+            <label class="block mb-1 font-bold text-gray-500">New Password</label>
+            <input type="password" class="form-control w-full border-2 border-gray-200 p-3 rounded outline-none"
+            formControlName="new_password" placeholder="Email">
+          </div>
+          <div>
+            <label class="block mb-1 font-bold text-gray-500"> Confirm new Password</label>
+            <input type="password" class="form-control w-full border-2 border-gray-200 p-3 rounded outline-none"
+            formControlName="new_password_confirmation" placeholder="Email">
+          </div>
+          <br>
+
+          <button type="submit" class="block w-full  bg-gray-400 p-4 rounded text-gray-800 hover:text-yellow-800 transition duration-200"
+          (click)="changePassword()" [disabled]="password.invalid"
+          [ngStyle]="{'background-color': password.invalid? '#ec1f1f' : '#95e692'}"
+
+          >
+            Change Password </button>
+        </form>
+
+      </div>
+      </div>
+    </div>
+    </div>
+
+
+  <!-- back ground div-->
 </div>
+
+
+
