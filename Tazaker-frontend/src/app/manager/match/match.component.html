@@ -68,13 +68,23 @@
                 you must enter the match venue
                </label>
 
-              <select
+              <select *ngIf="!EditMode"
               formControlName="match_venue"
               class="w-full border-2 bg-white border-gray-200 rounded px-3 py-3 outline-none"
               >
                 <option class="py-1" disabled selected>-- Choose stadium --</option>
                 <option class="py-1" *ngFor="let stadium of Stadiums" > {{stadium.name}}</option>
               </select>
+
+              <input *ngIf="EditMode"
+              formControlName="match_venue"
+              type="email"
+              class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+              name="match_venue"
+              [readOnly]="EditMode"
+            />
+
+
 
 
 
