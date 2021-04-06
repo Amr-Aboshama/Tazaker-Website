@@ -14,7 +14,7 @@ export class match{
 
 
   //will delete later
-  Stadium_id: number;
+  //Stadium_id: number;
 
 
 

@@ -36,14 +36,14 @@ export class SignupComponent implements OnInit {
   checkPasswords(group: FormGroup) {
     const password = group.get('password').value;
     const confirmPassword = group.get('confirmPassword').value;
-    return password === confirmPassword ? null : { notSame: true }     
+    return password === confirmPassword ? null : { notSame: true }
   }
 
   ngOnInit(): void { }
 
   signUp(): void {
-    this.dataService.userregistration(this.signupForm.value.username, this.signupForm.value.password, this.signupForm.value.confirmPassword, 
-                                    this.signupForm.value.firstname, this.signupForm.value.lastname, this.signupForm.value.birthdate, 
+    this.dataService.userregistration(this.signupForm.value.username, this.signupForm.value.password, this.signupForm.value.confirmPassword,
+                                    this.signupForm.value.firstname, this.signupForm.value.lastname, this.signupForm.value.birthdate,
                                     this.signupForm.value.gender, this.signupForm.value.city, this.signupForm.value.address, this.signupForm.value.email, this.signupForm.value.role)
     .pipe(first())
     .subscribe(

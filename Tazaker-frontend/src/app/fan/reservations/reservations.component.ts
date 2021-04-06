@@ -4,6 +4,10 @@ import { User } from './../../classes/User';
 import { ReservationsService } from './reservations.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { from } from 'rxjs';
+import { from as observableFrom } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-reservations',
@@ -15,11 +19,12 @@ export class ReservationsComponent implements OnInit {
   id: number;
   User : User;
   tickets : reserved[];
-  match : match;
+  matches : match[] = [];
 
   constructor(private HttpService: ReservationsService ,private route: ActivatedRoute , private router: Router) {
     this.id = parseInt(localStorage.getItem('role'), 10);
     console.log('THE ID IS in reservations :' , this.id);
+
 
 
    }
@@ -30,13 +35,13 @@ export class ReservationsComponent implements OnInit {
     .subscribe( data => {
       this.User = data.user,
       this.tickets = data.user.tickets,
-      this.getMatchDetails(),
 
-      console.log(data),
+      //console.log(data),
       (err: any) => console.log(err),
-      console.log(this.User)
-      console.log("MY TICKETS AREEE :", this.tickets)
-
+      //console.log(this.User)
+      console.log("MY TICKETS AREEE :", this.tickets),
+      this.getMatchDetails()
+     // console.log('ALL MATCHES AREEEE ' , this.matches[0])
 
     }
     );
@@ -44,19 +49,10 @@ export class ReservationsComponent implements OnInit {
     // get match name by id
     //this.getMatchNameById(1)
 
-    console.log(this.tickets);
+
 
   }
 
-  getMatchNameById(match_id : number , index : number){
-    this.HttpService.getMatchName(match_id).subscribe(data => {
-      this.tickets[index].match_details = data.matches[0],
-      console.log('my match id and dataaa is ', this.match),
-      (err: any) => console.log(err),
-      console.log(this.User)
-    })
-
-  }
 
   cancelReservation(ticket_id : number){
     this.HttpService.cancelMatchReservation(ticket_id).subscribe(
@@ -64,7 +60,12 @@ export class ReservationsComponent implements OnInit {
         (err: any) => console.log(err)
 
         this.refreshUser();
-      }
+      },
+      error =>
+      {
+        // console.log(error)
+        alert("We are sorry its too late to cancel the ticket ")
+        }
 
 
     )
@@ -81,17 +82,24 @@ export class ReservationsComponent implements OnInit {
       });
   }
 
-  getMatchDetails(){
-    console.log('tickets Number: ' + this.tickets.length);
-    for (var i = 0 ; i < this.tickets.length ; i++){
-      this.getMatchNameById(this.tickets[i].match_id , i);
-      //console.log(this.match);
-      //console.log('###################################');
-      //this.tickets[i].match_details = this.match;
+  async getMatchDetails(){
+
+    for (var i = 0 ; i < this.tickets.length ; i ++){
+      //console.log('i : ' , i),
+      console.log('here is my ids ',this.tickets[i].match_id)
+      let data = await this.HttpService.getMatchName(this.tickets[i].match_id)
+      //.subscribe(data => {
+      //  // console.log('DATAAAAAAAAAAAAAAAAAAAAAAAA', data.matches[0])
+      this.matches.push(data.matches[0]);
+      //   (err: any) => console.log(err)
+      // })
+
     }
+    console.log('ALL MATCHES AREEEE ' , this.matches)
 
 
   }
+
 
 
 

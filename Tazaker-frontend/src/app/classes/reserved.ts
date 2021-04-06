@@ -5,7 +5,6 @@ export class reserved{
   seat_row: number;
   seat_column: number;
   id : number;
-  match_details: match;
-
+  match_details : match;
 
 }

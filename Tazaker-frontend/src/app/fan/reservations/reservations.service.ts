@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 import { MyStrings } from 'src/app/classes/strings';
 
 @Injectable({
@@ -33,9 +34,9 @@ export class ReservationsService {
   }
 
   /// not working
-  getMatchName(match_id : number):Observable<any>{
+  async getMatchName(match_id : number){
 
-    return this.http.get<any>(this.host.serverhost+"api/unauth/viewMatches?="+match_id);
+    return await this.http.get<any>(this.host.serverhost+"api/unauth/viewMatches?match_id="+match_id).toPromise();
   }
 
 

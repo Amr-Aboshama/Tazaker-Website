@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-newnavbar></app-newnavbar>
 
 <div class="bg">
   <div class="p-8">
@@ -79,18 +79,33 @@
   <div class="p-4">
   <!--table-->
     <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-      <tr *ngFor='let ticket of tickets'>
+
         <div class="flex-auto p-4">
+
+          <ng-container *ngFor="let ticket of tickets; index as i">
+          <ng-container *ngFor="let match of matches; index as j ">
+            <ng-container *ngIf="i==j" >
+
+
+
           <div class="flex flex-wrap">
 
             <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+
               <h4 class="text-3xl text-xl">
-                  {{ ticket.match_details.home_team }} VS {{ ticket.match_details.away_team}}
+
+              {{ match.home_team }} VS {{ match.away_team}}<!---->
               </h4>
               <span class="font-semibold text-xl text-gray-500">
               </span>
+
+
             </div>
           </div>
+
+
+
+
 
           <p class="text-sm text-gray-500 mt-4">
             <span class="whitespace-no-wrap"> Seat row:  {{ ticket.seat_row }}</span>
@@ -108,9 +123,17 @@
             Cancel
           </button>
 
+
+           </ng-container>
+          </ng-container>
+
+        </ng-container>
+
+
+
         </div>
 
-      </tr>
+
       </div>
   <!-- end of table-->
   </div>

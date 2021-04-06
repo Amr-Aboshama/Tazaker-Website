@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { match } from 'src/app/classes/match';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import Pusher from 'pusher-js';
 
 
 
@@ -25,8 +27,8 @@ export class SeatsComponent implements OnInit {
 
   showModal = false;
 
-
   public ModalForm : FormGroup;
+//  private pusherClient: Pusher;
 
 
   constructor(private fb: FormBuilder,private HttpService: SeatsService ,private route: ActivatedRoute , private router: Router) {
@@ -35,6 +37,13 @@ export class SeatsComponent implements OnInit {
 
   ngOnInit(): void {
     //get stadium for dimensions
+    this.fetchStadium();
+
+
+
+  }
+
+  fetchStadium(){
     this.HttpService.getSeatsOfStadium(this.Matchid)
       .subscribe( data => {
         this.Stadium=data,
@@ -51,6 +60,8 @@ export class SeatsComponent implements OnInit {
         this.generateStadiumSeats()
       }
       );
+
+
   }
 
 
@@ -106,26 +117,27 @@ Modal(){
 }
 
 ReserveTicket(){
+  //const x = this.apiService.delete(keyName);
+  //x.subscribe(()=>this.update.next(true););
+
+      // /**
+      //   * pass api key to pusher
+      //   */
+      //  this.pusherClient = new Pusher('8161d3304adaa6b0ccaf',{ cluster: 'eu' });
+      //  /**
+      //  * pass auth. user id to channel
+      //  */
+
+
+
+
   this.HttpService.reserveSeat(this.Matchid,this.Modalseat)
   .subscribe(data => {
     console.log(data),
     (err: any) => console.log(err)
-
     // refresh
-    this.HttpService.getSeatsOfStadium(this.Matchid)
-    .subscribe( data => {
-      this.Stadium=data,
-      this.Stadium.column_count = data.length,
-      this.Stadium.row_count = data.width,
-
-      this.ReservedSeats=data.reserved_seats,
-      (err: any) => console.log(err),
-
-      this.generateStadiumSeats()
-    }
-    );
-
-  })
+    this.fetchStadium();
+   });
 this.toggleModal();
 
 }

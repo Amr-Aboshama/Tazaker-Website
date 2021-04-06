@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { NewnavbarComponent } from './tools/newnavbar/newnavbar.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     NavbarComponent,
     SeatsComponent,
     PendingComponent,
-    ReservationsComponent
+    ReservationsComponent,
+    NewnavbarComponent
   ],
   imports: [
     BrowserModule,

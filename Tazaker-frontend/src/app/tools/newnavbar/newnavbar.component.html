@@ -1,0 +1,55 @@
+
+<nav class="relative select-none bg-green-800 lg:flex lg:items-stretch w-full">
+
+  <a [routerLink]="['/home']"><i class="fa fa-home" style="font-size: 50px;"></i> </a>
+
+<!-- Guest -->
+  <div class="lg:flex lg:items-stretch lg:flex-no-shrink lg:flex-grow" *ngIf=" id == 3">
+    <div class="lg:flex md:px-4 lg:items-stretch lg:justify-end ml-auto">
+      <a [routerLink]="['/login']" class="flex-no-grow flex-no-shrink relative py-2 md:px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">Login</a>
+      <a [routerLink]="['/signup']" class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">signup</a>
+    </div>
+  </div>
+
+  <!-- admin -->
+
+  <div class="flex flex-no-shrink items-stretch h-12" *ngIf=" id == 0">
+    <a [routerLink]="['/pending']" class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">Pending Users</a>
+
+  </div>
+
+  <div class="lg:flex lg:items-stretch lg:flex-no-shrink lg:flex-grow" *ngIf=" id == 0">
+    <div class="lg:flex md:px-4 lg:items-stretch lg:justify-end ml-auto">
+      <a href='#' class="flex-no-grow flex-no-shrink relative py-2 md:px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">Signout</a>
+    </div>
+  </div>
+
+  <!-- Manager -->
+
+  <div class="flex flex-no-shrink items-stretch h-12" *ngIf=" id == 1">
+    <a [routerLink]="['/match']" class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">Add match</a>
+    <a [routerLink]="['/stadium']" class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">Add stadium</a>
+  </div>
+
+  <div class="lg:flex lg:items-stretch lg:flex-no-shrink lg:flex-grow" *ngIf=" id == 1">
+    <div class="lg:flex md:px-4 lg:items-stretch lg:justify-end ml-auto">
+      <a href='#' class="flex-no-grow flex-no-shrink relative py-2 md:px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">Signout</a>
+    </div>
+  </div>
+
+  <!-- Fan -->
+  <div class="flex flex-no-shrink items-stretch h-12" *ngIf=" id == 2">
+    <a [routerLink]="['/reservataions']" class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark"> Reservations</a>
+  </div>
+
+  <div class="lg:flex lg:items-stretch lg:flex-no-shrink lg:flex-grow" *ngIf=" id == 2">
+    <div class="lg:flex md:px-4 lg:items-stretch lg:justify-end ml-auto">
+      <a href='#' class="flex-no-grow flex-no-shrink relative py-2 md:px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">Signout</a>
+    </div>
+  </div>
+
+
+
+
+
+</nav>
