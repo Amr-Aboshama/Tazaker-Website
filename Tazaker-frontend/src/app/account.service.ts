@@ -18,12 +18,12 @@ baseUrl:string = "http://localhost:3000/";
 
 
 @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
-constructor(private httpClient : HttpClient) { }
+constructor(private httpClient : HttpClient , private router:Router) { }
 public userlogin(username, password) {
 
-  const body={ 
+  const body={
     username : username,
-    password: password 
+    password: password
   }
 
   console.log(body)
@@ -31,7 +31,7 @@ public userlogin(username, password) {
     .pipe(map(Users => {
       console.log(Users.token);
       this.setToken(Users.token);
-      
+
       var role = 2;
       if ( Users.role == 'Admin') {
         role = 0;
@@ -53,7 +53,9 @@ public logout(){
   this.httpClient.get<any>(this.host.serverhost + 'api/auth/signOut', {'headers': headers});
   localStorage.removeItem('token');
   localStorage.removeItem('role');
-  return;
+  this.router.navigate(['/login']);
+
+ // return;
 }
 
 //sign up

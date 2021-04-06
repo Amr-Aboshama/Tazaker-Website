@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from 'src/app/account.service';
 
 @Component({
   selector: 'app-newnavbar',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class NewnavbarComponent implements OnInit {
 
   id: number;
-  constructor() {
+  constructor( private HttpService: AccountService ) {
     this.id = parseInt(localStorage.getItem('role'), 10);
     console.log('THE ID IS in navbar :' , this.id);
 
@@ -20,6 +21,11 @@ export class NewnavbarComponent implements OnInit {
    }
 
   ngOnInit(): void {
+  }
+
+  signOut(){
+    this.HttpService.logout();
+
   }
 
 }

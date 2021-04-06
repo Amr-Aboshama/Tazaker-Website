@@ -1,3 +1,4 @@
+import { concatMap } from 'rxjs/operators';
 import { seat } from './../../classes/seat';
 import { SeatsService } from './seats.service';
 import { stadium } from 'src/app/classes/stadium';
@@ -5,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { match } from 'src/app/classes/match';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, concat } from 'rxjs';
 import Pusher from 'pusher-js';
 
 
@@ -134,10 +135,19 @@ ReserveTicket(){
   this.HttpService.reserveSeat(this.Matchid,this.Modalseat)
   .subscribe(data => {
     console.log(data),
-    (err: any) => console.log(err)
+    this.fetchStadium()
+  },
+    error => {
+
+     console.log(error),
+     alert(" Sorry the seat has already been reserved"),
+     this.fetchStadium()
+
+    }
+
     // refresh
-    this.fetchStadium();
-   });
+
+   );
 this.toggleModal();
 
 }

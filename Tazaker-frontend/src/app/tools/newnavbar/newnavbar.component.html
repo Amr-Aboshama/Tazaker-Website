@@ -20,7 +20,7 @@
 
   <div class="lg:flex lg:items-stretch lg:flex-no-shrink lg:flex-grow" *ngIf=" id == 0">
     <div class="lg:flex md:px-4 lg:items-stretch lg:justify-end ml-auto">
-      <a href='#' class="flex-no-grow flex-no-shrink relative py-2 md:px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">Signout</a>
+      <button class="flex-no-grow flex-no-shrink relative py-2 md:px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark" (click)="signOut()" >Signout</button>
     </div>
   </div>
 
@@ -33,18 +33,19 @@
 
   <div class="lg:flex lg:items-stretch lg:flex-no-shrink lg:flex-grow" *ngIf=" id == 1">
     <div class="lg:flex md:px-4 lg:items-stretch lg:justify-end ml-auto">
-      <a href='#' class="flex-no-grow flex-no-shrink relative py-2 md:px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">Signout</a>
+      <button class="flex-no-grow flex-no-shrink relative py-2 md:px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark" (click)="signOut()">Signout</button>
     </div>
   </div>
 
   <!-- Fan -->
   <div class="flex flex-no-shrink items-stretch h-12" *ngIf=" id == 2">
     <a [routerLink]="['/reservataions']" class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark"> Reservations</a>
+    <a [routerLink]="['/profile']" class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark"> Profile</a>
   </div>
 
   <div class="lg:flex lg:items-stretch lg:flex-no-shrink lg:flex-grow" *ngIf=" id == 2">
     <div class="lg:flex md:px-4 lg:items-stretch lg:justify-end ml-auto">
-      <a href='#' class="flex-no-grow flex-no-shrink relative py-2 md:px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark">Signout</a>
+      <button class="flex-no-grow flex-no-shrink relative py-2 md:px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark" (click)="signOut()">Signout</button>
     </div>
   </div>
 
