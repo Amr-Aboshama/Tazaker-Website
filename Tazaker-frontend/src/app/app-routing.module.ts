@@ -18,7 +18,6 @@ const routes: Routes = [
   {path:'reservataions', component: ReservationsComponent},
   {path:'seats/:id' , component: SeatsComponent},
   {path:'stadium' , component: StadiumComponent},
-  {path: 'home/:id' , component: HomeComponent },
   {path: 'home' , component: HomeComponent },
   {path:'signup' , component : SignupComponent },
   {path: 'login' , component: LoginComponent },

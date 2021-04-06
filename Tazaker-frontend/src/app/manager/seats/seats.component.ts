@@ -35,10 +35,12 @@ export class SeatsComponent implements OnInit {
   constructor(private fb: FormBuilder,private HttpService: SeatsService ,private route: ActivatedRoute , private router: Router) {
     this.Modal();
     this.id = parseInt(localStorage.getItem('role'), 10);
-    interval(1000).subscribe(x => {this.fetchStadium()});
+    //interval(3000).subscribe(x => {this.fetchStadium()});
+
    }
 
   ngOnInit(): void {
+
     //get stadium for dimensions
     this.fetchStadium();
 
@@ -137,6 +139,7 @@ ReserveTicket(){
   this.HttpService.reserveSeat(this.Matchid,this.Modalseat)
   .subscribe(data => {
     console.log(data),
+    alert('ticket successfully booked !!'),
     this.fetchStadium()
   },
     error => {

@@ -31,24 +31,22 @@ export class ReservationsComponent implements OnInit {
 
   ngOnInit(): void {
 
-     this.HttpService.getUserInfo()
-    .subscribe( data => {
-      this.User = data.user,
-      this.tickets = data.user.tickets,
+    //  this.HttpService.getUserInfo()
+    // .subscribe( data => {
+    //   this.User = data.user,
+    //   this.tickets = data.user.tickets,
 
-      //console.log(data),
-      (err: any) => console.log(err),
-      //console.log(this.User)
-      console.log("MY TICKETS AREEE :", this.tickets),
-      this.getMatchDetails()
-     // console.log('ALL MATCHES AREEEE ' , this.matches[0])
+    //   //console.log(data),
+    //   (err: any) => console.log(err),
+    //   //console.log(this.User)
+    //   console.log("MY TICKETS AREEE :", this.tickets),
+    //   this.getMatchDetails()
+    //  // console.log('ALL MATCHES AREEEE ' , this.matches[0])
 
-    }
-    );
+    // }
+    // );
 
-    // get match name by id
-    //this.getMatchNameById(1)
-
+    this.refreshUser();
 
 
   }
@@ -57,13 +55,13 @@ export class ReservationsComponent implements OnInit {
   cancelReservation(ticket_id : number){
     this.HttpService.cancelMatchReservation(ticket_id).subscribe(
       data => {
-        (err: any) => console.log(err)
 
+        alert("Ticket is canceled successfully")
         this.refreshUser();
       },
       error =>
       {
-        // console.log(error)
+        console.log(error)
         alert("We are sorry its too late to cancel the ticket ")
         }
 
@@ -78,24 +76,25 @@ export class ReservationsComponent implements OnInit {
         this.tickets = data.user.tickets,
         console.log(data),
         (err: any) => console.log(err),
-        console.log(this.User)
+        console.log(this.User),
+        this.getMatchDetails()
+
       });
   }
 
   async getMatchDetails(){
-
+    console.log(' TICKETS LENGHTHHHHHHHHHHH ',this.tickets.length)
+    this.matches =[];
     for (var i = 0 ; i < this.tickets.length ; i ++){
       //console.log('i : ' , i),
       console.log('here is my ids ',this.tickets[i].match_id)
       let data = await this.HttpService.getMatchName(this.tickets[i].match_id)
-      //.subscribe(data => {
-      //  // console.log('DATAAAAAAAAAAAAAAAAAAAAAAAA', data.matches[0])
+     
       this.matches.push(data.matches[0]);
-      //   (err: any) => console.log(err)
-      // })
+      
 
     }
-    console.log('ALL MATCHES AREEEE ' , this.matches)
+   
 
 
   }
