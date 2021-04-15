@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Matches extends Model
 {
@@ -28,6 +29,12 @@ class Matches extends Model
         'first_linesman',
         'second_linesman',
     ];
+
+    public function getTimeAttribute($value)
+    {
+        $time = Carbon::createFromFormat('H:i:s', $value);
+        return $time->format('H:i');
+    }
 
     public static function storeMatch($match_details)
     {
